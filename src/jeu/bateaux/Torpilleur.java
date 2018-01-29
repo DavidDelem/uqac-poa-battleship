@@ -1,7 +1,11 @@
 package jeu.bateaux;
 
-public class Torpilleur {
+import jeu.utils.Position;
 
-    private ChampTir champTir = ChampTir.HORIZONTAL;
+public class Torpilleur extends Bateau {
+
+    public Torpilleur(Position position){
+        super(2,5, position);
+    }
 
 }

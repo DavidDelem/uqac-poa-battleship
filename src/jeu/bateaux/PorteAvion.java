@@ -1,4 +1,11 @@
 package jeu.bateaux;
 
-public class PorteAvion {
+import jeu.utils.Position;
+
+public class PorteAvion extends Bateau {
+
+    public PorteAvion(Position position){
+        super(5,2, position);
+    }
+
 }

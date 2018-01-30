@@ -1,10 +1,9 @@
 package jeu.bateaux;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Vector;
 
-import jeu.utils.EtatBateau;
 import jeu.utils.Orientation;
 import jeu.utils.Position;
 
@@ -15,38 +14,45 @@ public class Bateau {
         PAS_TOUCHE
     }
 
-    protected int longueur, champTir;
-    protected Orientation orientation;
-    protected EtatBateau etatBateau;
-    protected List<EtatCaseBateau> caseList;
-    protected Position positionProue; //Proue : avant du bateau
+    private int longueur, champTir;
+    private Orientation orientation;
+    private EtatBateau etatBateau;
+    private List<EtatCaseBateau> caseBateauList;
+    private Position position;
 
-    public Bateau(int longueur, int champTir, Position position){
+    public Bateau(int longueur, int champTir){
 
         this.longueur = longueur;
         this.champTir = champTir;
-        this.orientation = Orientation.VERTICALE;
+        this.orientation = Orientation.NORD;
         this.etatBateau = EtatBateau.PAS_COULE;
-        this.positionProue = position;
+        this.position = new Position(-1,-1);
 
-        caseList = new ArrayList<>();
-        for(int i=0; i<longueur; i++) caseList.add(EtatCaseBateau.PAS_TOUCHE);
+        caseBateauList = new ArrayList<>();
+        for(int i=0; i<longueur; i++) caseBateauList.add(EtatCaseBateau.PAS_TOUCHE);
     }
 
-    public void deplacer(Position position){
-        this.positionProue = position;
+    public void setOrientation(Orientation orientation){
+        this.orientation = orientation;
     }
 
-    public EtatBateau getEtatBateau() {
+    public void setPosition(Position position){
+        this.position = position;
+    }
 
-        /*if(this.etatBateau == EtatBateau.COULE) return EtatBateau.COULE;
+    public Position getPosition() {
+        return position;
+    }
 
-        int cpt = 0;
-        for (EtatCaseBateau etatCaseBateau : this.caseList) {
-            if (etatCaseBateau == EtatCaseBateau.TOUCHE) cpt++;
+    public EtatBateau toucher(int indexCaseTouchee){
+
+        if(etatBateau != EtatBateau.COULE){
+            this.caseBateauList.set(indexCaseTouchee, EtatCaseBateau.TOUCHE);
+
+            if(Collections.frequency(this.caseBateauList, EtatCaseBateau.TOUCHE) >= 2){
+                this.etatBateau = EtatBateau.COULE;
+            }
         }
-        if(cpt >= 2) this.etatBateau = EtatBateau.COULE;*/
-
         return this.etatBateau;
     }
 

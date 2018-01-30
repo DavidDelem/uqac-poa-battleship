@@ -47,7 +47,9 @@ public class Partie {
 
         Faire l'initialisation pour J1 & J2
 
-        Boucler sur la partie jusqu'à ce qu'il y ait un gagnant*/
+        Boucler sur la partie jusqu'à ce qu'il y ait un gagnant*
+
+        Idee : une console pour chaque joueur ?? */
 
     }
 

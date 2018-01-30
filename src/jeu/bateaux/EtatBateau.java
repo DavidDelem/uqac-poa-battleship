@@ -1,4 +1,4 @@
-package jeu.utils;
+package jeu.bateaux;
 
 public enum EtatBateau {
     COULE,

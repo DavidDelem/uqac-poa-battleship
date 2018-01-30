@@ -2,7 +2,7 @@ package jeu.utils;
 
 public class Position {
 
-    int x,y;
+    public int x,y;
 
     public Position(){
         this.x = 0;
@@ -13,5 +13,4 @@ public class Position {
         this.x = x;
         this.y = y;
     }
-
 }

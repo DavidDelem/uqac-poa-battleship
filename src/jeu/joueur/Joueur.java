@@ -9,7 +9,7 @@ public class Joueur implements ComportementJoueur {
 
     public Joueur(String nom){
         this.nom = nom;
-        this.grille = new Grille(10, 10);
+        this.grille = new Grille(10);
     }
 
     public String getNom() {

@@ -1,5 +1,6 @@
 package jeu.bateaux;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -18,7 +19,7 @@ public class Bateau {
     private Orientation orientation;
     private EtatBateau etatBateau;
     private List<EtatCaseBateau> caseBateauList;
-    private Position position;
+    private Position positionProue;
 
     public Bateau(int longueur, int champTir){
 
@@ -26,7 +27,7 @@ public class Bateau {
         this.champTir = champTir;
         this.orientation = Orientation.NORD;
         this.etatBateau = EtatBateau.PAS_COULE;
-        this.position = new Position(-1,-1);
+        this.positionProue = new Position(-1,-1);
 
         caseBateauList = new ArrayList<>();
         for(int i=0; i<longueur; i++) caseBateauList.add(EtatCaseBateau.PAS_TOUCHE);
@@ -36,12 +37,20 @@ public class Bateau {
         this.orientation = orientation;
     }
 
-    public void setPosition(Position position){
-        this.position = position;
+    public void setPositionProue(Position positionProue){
+        this.positionProue = positionProue;
     }
 
-    public Position getPosition() {
-        return position;
+    public Position getPositionProue() {
+        return positionProue;
+    }
+
+    public int getLongueur() {
+        return longueur;
+    }
+
+    public void setLongueur(int longueur) {
+        this.longueur = longueur;
     }
 
     public EtatBateau toucher(int indexCaseTouchee){
@@ -54,6 +63,33 @@ public class Bateau {
             }
         }
         return this.etatBateau;
+    }
+
+    public static List<Position> getPositions(Bateau bateau) {
+
+        List<Position> positions = new ArrayList<>();
+
+        if(bateau.positionProue.x != -1 && bateau.positionProue.y != -1) {
+            for(int i=0 ; i<bateau.longueur; i++){
+                switch (bateau.orientation) {
+                    case NORD:
+                        positions.add(new Position(bateau.positionProue.x, bateau.positionProue.y+i));
+                        break;
+                    case EST:
+                        positions.add(new Position(bateau.positionProue.x-i, bateau.positionProue.y));
+                        break;
+                    case SUD:
+                        positions.add(new Position(bateau.positionProue.x, bateau.positionProue.y-i));
+                        break;
+                    case OUEST:
+                        positions.add(new Position(bateau.positionProue.x+i, bateau.positionProue.y));
+                        break;
+                }
+            }
+        }
+
+        return positions;
+
     }
 
 }

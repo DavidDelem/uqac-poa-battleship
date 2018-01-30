@@ -39,6 +39,8 @@ public class Partie {
                 break;
         }
 
+        this.joueur1.getGrille().afficherGrille();
+
         /*TODO : Prochaines étapes
         Créer la classe Grille
 

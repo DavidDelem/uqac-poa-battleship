@@ -98,4 +98,37 @@ public class Bateau {
 
     }
 
+    public List<Position> tirsPossibles(){
+        List<Position> tirsPossiblesList = new ArrayList<>();
+
+        switch (this.orientation) {
+            case NORD:
+            case SUD:
+                for(int i=0; i<this.champTir; longueur++){
+                    tirsPossiblesList.add(new Position(this.positionProue.x-i, this.positionProue.y));
+                    tirsPossiblesList.add(new Position(this.positionProue.x+this.longueur+i, this.positionProue.y));
+
+                    for(int j=0; i<this.longueur; longueur++){
+                        tirsPossiblesList.add(new Position(this.positionProue.x+j, this.positionProue.y-i));
+                        tirsPossiblesList.add(new Position(this.positionProue.x+j, this.positionProue.y+i));
+                    }
+                }
+                break;
+            case EST:
+            case OUEST:
+                for(int i=0; i<this.champTir; longueur++){
+                    tirsPossiblesList.add(new Position(this.positionProue.x, this.positionProue.y-i));
+                    tirsPossiblesList.add(new Position(this.positionProue.x, this.positionProue.y+this.longueur+i));
+
+                    for(int j=0; i<this.longueur; longueur++){
+                        tirsPossiblesList.add(new Position(this.positionProue.x-i, this.positionProue.y+j));
+                        tirsPossiblesList.add(new Position(this.positionProue.x+i, this.positionProue.y+j));
+                    }
+                }
+                break;
+        }
+
+        return tirsPossiblesList;
+    }
+
 }

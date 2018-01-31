@@ -1,5 +1,6 @@
 package jeu.grille;
 
+import javafx.geometry.Pos;
 import jeu.bateaux.*;
 import jeu.utils.Orientation;
 import jeu.utils.Position;
@@ -105,7 +106,52 @@ public class GrilleDefense extends Grille {
         return true;
     }
 
-    public void afficherGrille() {
+    private List<Position> positionsTirsPossibles(){
+
+        List<Position> tirsPossiblesList = new ArrayList<>();
+
+        //Recuperation des tirs possibles de chaque bateau
+        for (Bateau itemBateau: this.bateauList) {
+            tirsPossiblesList.addAll(itemBateau.tirsPossibles());
+        }
+
+        //Suppression des tirs hors de la grille
+        for(Position itemPosition : tirsPossiblesList){
+            if(itemPosition.x < 0
+                    || itemPosition.x >= this.tailleGrille
+                    || itemPosition.y < 0
+                    || itemPosition.y >= this.tailleGrille){
+                tirsPossiblesList.remove(itemPosition);
+            }
+        }
+
+        return tirsPossiblesList;
+    }
+
+    private List<Position> positionsBateaux(){
+
+        List<Position> positionsBateaux = new ArrayList<>();
+
+        for(Bateau itemBateau : this.bateauList){
+            positionsBateaux.addAll(Bateau.getPositions(itemBateau));
+        }
+        return positionsBateaux;
+    }
+
+
+    public void afficherGrille(){
+
+        for(int i=0; i<this.tailleGrille; i++) {
+            for(int j=0; j<this.tailleGrille; j++) this.grille[i][j] = EtatCaseGrille.VIDE;
+        }
+
+        for(Position itemPosition : this.positionsBateaux()){
+            this.grille[itemPosition.x][itemPosition.y] = EtatCaseGrille.BATEAU;
+        }
+
+        for(Position itemPosition : this.positionsTirsPossibles()){
+            this.grille[itemPosition.x][itemPosition.y] = EtatCaseGrille.CHAMP_TIR;
+        }
 
         char lettre = 'A';
 
@@ -122,7 +168,7 @@ public class GrilleDefense extends Grille {
             System.out.print((i+1<10 ? (i+1)+" " : i+1) + " |");
 
             for (int j = 0; j < this.tailleGrille; j++) {
-                System.out.print(" " + " " + " |");
+                System.out.print(" " + this.grille[i][j].getAffichage() + " |");
             }
             System.out.println();
             System.out.println("-------------------------------------------");

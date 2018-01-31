@@ -1,6 +1,6 @@
 package jeu.joueur;
 
-import jeu.Grille;
+import jeu.grille.GrilleDefense;
 
 public class JoueurHumain extends Joueur implements ComportementJoueur{
 
@@ -9,7 +9,7 @@ public class JoueurHumain extends Joueur implements ComportementJoueur{
     }
 
     @Override
-    public Grille initialiserMaGrille() {
+    public GrilleDefense initialiserMaGrille() {
         return null;
     }
 

@@ -1,4 +1,4 @@
-package jeu;
+package jeu.grille;
 
 import jeu.bateaux.*;
 import jeu.utils.Orientation;
@@ -7,82 +7,90 @@ import jeu.utils.Position;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Grille {
+public class GrilleDefense extends Grille{
 
-    enum EtatCaseGrille{
-        VIDE,
-        BATEAU
-    }
-
-    private EtatCaseGrille[][] grille;
     private List<Bateau> bateauList;
-    private int tailleGrille;
 
-    public Grille (int tailleGrille){
+    public GrilleDefense(int tailleGrille){
+        super(tailleGrille);
 
-        this.tailleGrille = tailleGrille;
-
-        this.grille = new EtatCaseGrille[tailleGrille][tailleGrille];
-        for(int i=0; i<this.tailleGrille; i++) {
-            for(int j=0; j<this.tailleGrille; j++) this.grille[i][j] = EtatCaseGrille.VIDE;
-        }
-
-        this.bateauList = new ArrayList<>();
-        this.bateauList.add(new ContreTorpilleur());
-        this.bateauList.add(new Croiseur());
-        this.bateauList.add(new PorteAvion());
-        this.bateauList.add(new SousMarin());
-        this.bateauList.add(new Torpilleur());
     }
 
     public boolean placerBateau(String identifiantBateau, Position positionProue, Orientation orientation) {
 
+        Bateau bateau = creerBateau(identifiantBateau, orientation, positionProue);
 
-        // Récupération du bateau
+        if( !verifierExistanceBateau(bateau) && verifierPositionBateau(bateau) && verifierSuperpositionBateau(bateau)){
+            this.bateauList.add(bateau);
+            return true;
+        }
+        else return false;
+    }
 
-        Bateau bateau;
+    private Bateau creerBateau(String identifiantBateau, Orientation orientation, Position positionProue){
+
+        Bateau bateau = null;
 
         switch (identifiantBateau) {
             case "CT":
-                bateau = this.bateauList.get(0);
+                bateau = new ContreTorpilleur();
                 break;
             case "C":
-                bateau = this.bateauList.get(1);
+                bateau = new Croiseur();
                 break;
             case "PA":
-                bateau = this.bateauList.get(2);
+                bateau = new PorteAvion();
                 break;
             case "SM":
-                bateau = this.bateauList.get(3);
+                bateau = new SousMarin();
                 break;
             case "T":
-                bateau = this.bateauList.get(4);
+                bateau = new Torpilleur();
                 break;
-            default:
-                return false;
         }
 
-        // Bateau dans les limites de la grille
+        if(bateau != null){
+            bateau.setPositionProue(positionProue);
+            bateau.setOrientation(orientation);
+            return bateau;
 
-        switch (orientation) {
+        }
+        else return null;
+
+    }
+
+    private boolean verifierExistanceBateau(Bateau bateau){
+
+        for (Bateau itemBateau: this.bateauList) {
+            if(bateau.getClass().equals( itemBateau.getClass())) return true;
+        }
+
+        return false;
+    }
+
+    private boolean verifierPositionBateau(Bateau bateau){
+
+        switch (bateau.getOrientation()) {
             case NORD:
-                if(positionProue.y + bateau.getLongueur() > this.tailleGrille) return false;
+                if(bateau.getPositionProue().y + bateau.getLongueur() > this.tailleGrille) return false;
                 break;
             case EST:
-                if(positionProue.x - bateau.getLongueur() < 0) return false;
+                if(bateau.getPositionProue().x - bateau.getLongueur() < 0) return false;
                 break;
             case SUD:
-                if(positionProue.y - bateau.getLongueur() < 0) return false;
+                if(bateau.getPositionProue().y - bateau.getLongueur() < 0) return false;
                 break;
             case OUEST:
-                if(positionProue.x + bateau.getLongueur() > this.tailleGrille) return false;
+                if(bateau.getPositionProue().x + bateau.getLongueur() > this.tailleGrille) return false;
                 break;
             default:
                 return false;
         }
 
-        // Test de non superposition des bateau
+        return true;
+    }
 
+    private boolean verifierSuperpositionBateau(Bateau bateau){
         List<Position> positionsPrises = new ArrayList<>();
 
         for (Bateau itemBateau: this.bateauList) {
@@ -95,8 +103,6 @@ public class Grille {
             if (positionsPrises.contains(position)) return false;
         }
 
-        bateau.setPositionProue(positionProue);
-        bateau.setOrientation(orientation);
         return true;
     }
 

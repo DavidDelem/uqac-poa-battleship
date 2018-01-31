@@ -1,4 +1,4 @@
-package jeu;
+package jeu.grille;
 
 public class Case {
 }

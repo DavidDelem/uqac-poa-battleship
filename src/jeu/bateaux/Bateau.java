@@ -8,6 +8,8 @@ import java.util.List;
 import jeu.utils.Orientation;
 import jeu.utils.Position;
 
+import javax.print.attribute.standard.OrientationRequested;
+
 public class Bateau {
 
     enum EtatCaseBateau{
@@ -35,6 +37,10 @@ public class Bateau {
 
     public void setOrientation(Orientation orientation){
         this.orientation = orientation;
+    }
+
+    public Orientation getOrientation() {
+        return orientation;
     }
 
     public void setPositionProue(Position positionProue){

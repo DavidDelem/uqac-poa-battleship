@@ -39,13 +39,13 @@ public class Partie {
                 break;
         }
 
-        this.joueur1.getGrille().afficherGrille();
+        this.joueur1.getGrilleDefense().afficherGrille();
 
         /*TODO : Prochaines étapes
-        Créer la classe Grille
+        Créer la classe GrilleDefense
 
         V1 : grille taille définie
-        V2 : creer une fonction selectionTailleGrille() et appeler ctor de Grille() avec ces valeurs
+        V2 : creer une fonction selectionTailleGrille() et appeler ctor de GrilleDefense() avec ces valeurs
 
         Faire l'initialisation pour J1 & J2
 

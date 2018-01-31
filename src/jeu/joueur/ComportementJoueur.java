@@ -1,9 +1,9 @@
 package jeu.joueur;
 
-import jeu.Grille;
+import jeu.grille.GrilleDefense;
 
 public interface ComportementJoueur {
     
-    public Grille initialiserMaGrille();
+    public GrilleDefense initialiserMaGrille();
     public void jouer();
 }

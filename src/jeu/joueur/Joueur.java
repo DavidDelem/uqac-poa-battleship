@@ -1,27 +1,27 @@
 package jeu.joueur;
 
-import jeu.Grille;
+import jeu.grille.GrilleDefense;
 
 public class Joueur implements ComportementJoueur {
 
     private String nom;
-    private Grille grille;
+    private GrilleDefense grilleDefense;
 
     public Joueur(String nom){
         this.nom = nom;
-        this.grille = new Grille(10);
+        this.grilleDefense = new GrilleDefense(10);
     }
 
     public String getNom() {
         return nom;
     }
 
-    public Grille getGrille() {
-        return grille;
+    public GrilleDefense getGrilleDefense() {
+        return grilleDefense;
     }
 
     @Override
-    public Grille initialiserMaGrille() {
+    public GrilleDefense initialiserMaGrille() {
         return null;
     }
 

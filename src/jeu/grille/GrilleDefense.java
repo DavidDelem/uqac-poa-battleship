@@ -7,13 +7,12 @@ import jeu.utils.Position;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GrilleDefense extends Grille{
+public class GrilleDefense extends Grille {
 
     private List<Bateau> bateauList;
 
     public GrilleDefense(int tailleGrille){
         super(tailleGrille);
-
     }
 
     public boolean placerBateau(String identifiantBateau, Position positionProue, Orientation orientation) {

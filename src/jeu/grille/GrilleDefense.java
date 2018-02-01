@@ -20,12 +20,23 @@ public class GrilleDefense extends Grille {
 
         Bateau bateau = creerBateau(identifiantBateau, orientation, positionProue);
 
-        if( !verifierExistanceBateau(bateau) && verifierPositionBateau(bateau) && !verifierSuperpositionBateau(bateau)){
+        if(verifierExistanceBateau(bateau)) {
+            System.out.println("Erreur : Bateau déjà placé !");
+            return false;
+        }
+        else if(!verifierPositionBateau(bateau)) {
+            System.out.println("Erreur : Bateau en dehors de la grille !");
+            return false;
+        }
+        else if(verifierSuperpositionBateau(bateau)) {
+            System.out.println("Erreur : bateau superposé !");
+            return false;
+        }
+        else{
             if(this.bateauList == null) this.bateauList = new ArrayList<>();
             this.bateauList.add(bateau);
             return true;
         }
-        else return false;
     }
 
     public List<Bateau> bateauNonPlaces(){
@@ -93,22 +104,22 @@ public class GrilleDefense extends Grille {
 
         switch (bateau.getOrientation()) {
             case NORD:
-                if(bateau.getPositionProue().y + bateau.getLongueur() > this.tailleGrille) return false;
+                if(bateau.getPositionProue().x + bateau.getLongueur() - 1 < this.tailleGrille) return true;
                 break;
             case EST:
-                if(bateau.getPositionProue().x - bateau.getLongueur() < 0) return false;
+                if(bateau.getPositionProue().y - bateau.getLongueur() + 1 >= 0) return true;
                 break;
             case SUD:
-                if(bateau.getPositionProue().y - bateau.getLongueur() < 0) return false;
+                if(bateau.getPositionProue().x - bateau.getLongueur() + 1 >= 0) return true;
                 break;
             case OUEST:
-                if(bateau.getPositionProue().x + bateau.getLongueur() > this.tailleGrille) return false;
+                if(bateau.getPositionProue().y + bateau.getLongueur() - 1 < this.tailleGrille) return true;
                 break;
             default:
                 return false;
         }
 
-        return true;
+        return false;
     }
 
     private boolean verifierSuperpositionBateau(Bateau bateau) {

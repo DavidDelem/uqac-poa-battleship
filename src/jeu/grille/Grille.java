@@ -8,10 +8,10 @@ public class Grille {
 
     enum EtatCaseGrille{
         VIDE(' '),
-        BATEAU('B'),
+        BATEAU('#'),
         BATEAU_TOUCHE('X'),
         CHAMP_TIR('*'),
-        TOUCHE('O'),
+        TOUCHE('#'),
         PAS_TOUCHE('X');
 
         private final char affichage;

@@ -32,7 +32,7 @@ public class JoueurHumain extends Joueur implements ComportementJoueur{
             System.out.println("Bateaux restants à placer :");
 
             for(Bateau itemBateau : this.getGrilleDefense().bateauNonPlaces()){
-                for(int i=0; i<itemBateau.getLongueur(); i++) System.out.print("#");
+                for(int i=0; i<itemBateau.getLongueur(); i++) System.out.print("# ");
                 System.out.print(" : "+itemBateau.getNom() + " [" + itemBateau.getIdentifiant() + "]");
                 System.out.println();
             }
@@ -58,14 +58,12 @@ public class JoueurHumain extends Joueur implements ComportementJoueur{
                     if( !input.matches("^(CT|C|PA|SM|T),[A-J],([1-9]|10),(NORD|EST|SUD|OUEST)$") ){
                         System.out.println("Erreur : séquence invalide (syntaxe ou valeur) !");
                     }
-                    else if( ! this.getGrilleDefense().placerBateau(
+                    else if( this.getGrilleDefense().placerBateau(
                                 sequence[0],
                                 new Position(Integer.parseInt(sequence[2])-1, Position.convertirColonne(sequence[1].charAt(0))),
                                 Orientation.convertirOrientation(sequence[3]))){
-
-                        System.out.println("Erreur : bateau en dehors de la grille OU bateau superposé !");
+                        erreurSelection = false;
                     }
-                    else erreurSelection = false;
                 }
             } catch (IOException e) {
                 e.printStackTrace();

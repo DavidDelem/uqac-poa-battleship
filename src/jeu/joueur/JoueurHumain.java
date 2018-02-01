@@ -57,12 +57,29 @@ public class JoueurHumain extends Joueur implements ComportementJoueur{
 
                     if( !input.matches("^(CT|C|PA|SM|T),[A-J],([1-9]|10),(NORD|EST|SUD|OUEST)$") ){
                         System.out.println("Erreur : séquence invalide (syntaxe ou valeur) !");
-                    }
-                    else if( this.getGrilleDefense().placerBateau(
-                                sequence[0],
+                    } else {
+
+                        GrilleDefense.ResultatPlacementBateau resultatPlacementBateau =
+                                this.getGrilleDefense().placerBateau(sequence[0],
                                 new Position(Integer.parseInt(sequence[2])-1, Position.convertirColonne(sequence[1].charAt(0))),
-                                Orientation.convertirOrientation(sequence[3]))){
-                        erreurSelection = false;
+                                Orientation.convertirOrientation(sequence[3]));
+
+                        switch (resultatPlacementBateau) {
+                            case HORS_GRILLE:
+                                System.out.println("Erreur : Bateau en dehors de la grille !");
+                                break;
+                            case SUPERPOSITION:
+                                System.out.println("Erreur : bateau superposé !");
+                                break;
+                            case DEJA_PLACE:
+                                System.out.println("Erreur : Bateau déjà placé !");
+                                break;
+                            case OK:
+                                erreurSelection = false;
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
             } catch (IOException e) {

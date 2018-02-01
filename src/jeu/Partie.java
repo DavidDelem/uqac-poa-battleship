@@ -38,8 +38,8 @@ public class Partie {
                 this.joueur2 = new JoueurMachine("J2-IA");
                 break;
         }
-
-        this.joueur1.initialiserGrilleDefense(); //SUD & EST PROBLEME !!!!!
+//
+//        this.joueur1.initialiserGrilleDefense();
         this.joueur2.initialiserGrilleDefense();
 
         /*boolean joueur1Gagne = false;

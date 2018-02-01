@@ -10,32 +10,36 @@ import java.util.List;
 
 public class GrilleDefense extends Grille {
 
+    public enum ResultatPlacementBateau{
+        SUPERPOSITION,
+        DEJA_PLACE,
+        HORS_GRILLE,
+        OK
+    }
+
     private List<Bateau> bateauList;
 
     public GrilleDefense(int tailleGrille, String nomJoueur){
         super(tailleGrille, nomJoueur);
     }
 
-    public boolean placerBateau(String identifiantBateau, Position positionProue, Orientation orientation) {
+    public ResultatPlacementBateau placerBateau(String identifiantBateau, Position positionProue, Orientation orientation) {
 
         Bateau bateau = creerBateau(identifiantBateau, orientation, positionProue);
 
         if(verifierExistanceBateau(bateau)) {
-            System.out.println("Erreur : Bateau déjà placé !");
-            return false;
+            return ResultatPlacementBateau.DEJA_PLACE;
         }
         else if(!verifierPositionBateau(bateau)) {
-            System.out.println("Erreur : Bateau en dehors de la grille !");
-            return false;
+            return ResultatPlacementBateau.HORS_GRILLE;
         }
         else if(verifierSuperpositionBateau(bateau)) {
-            System.out.println("Erreur : bateau superposé !");
-            return false;
+            return ResultatPlacementBateau.SUPERPOSITION;
         }
         else{
             if(this.bateauList == null) this.bateauList = new ArrayList<>();
             this.bateauList.add(bateau);
-            return true;
+            return ResultatPlacementBateau.OK;
         }
     }
 

@@ -123,9 +123,11 @@ public class GrilleDefense extends Grille {
         }
 
         for (Position position: Bateau.getPositions(bateau)) {
-            if (positionsPrises.contains(position)) return true;
+            for(Position positionPrise: positionsPrises) {
+                if(position.equals(positionPrise)) return true;
+            }
+//            if (positionsPrises.contains(position)) return true;
         }
-
         return false;
     }
 

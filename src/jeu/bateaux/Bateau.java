@@ -32,7 +32,7 @@ public class Bateau {
         this.champTir = champTir;
         this.orientation = Orientation.NORD;
         this.etatBateau = EtatBateau.PAS_COULE;
-        this.positionProue = new Position(-1,-1);
+        this.positionProue = new Position(0,0);
 
         caseBateauList = new ArrayList<>();
         for(int i=0; i<longueur; i++) caseBateauList.add(EtatCaseBateau.PAS_TOUCHE);
@@ -86,22 +86,20 @@ public class Bateau {
 
         List<Position> positions = new ArrayList<>();
 
-        if(bateau.positionProue.x != -1 && bateau.positionProue.y != -1) {
-            for(int i=0 ; i<bateau.longueur; i++){
-                switch (bateau.orientation) {
-                    case NORD:
-                        positions.add(new Position(bateau.positionProue.x+i, bateau.positionProue.y));
-                        break;
-                    case EST:
-                        positions.add(new Position(bateau.positionProue.x, bateau.positionProue.y-i));
-                        break;
-                    case SUD:
-                        positions.add(new Position(bateau.positionProue.x-i, bateau.positionProue.y));
-                        break;
-                    case OUEST:
-                        positions.add(new Position(bateau.positionProue.x, bateau.positionProue.y+i));
-                        break;
-                }
+        for(int i=0 ; i<bateau.longueur; i++){
+            switch (bateau.orientation) {
+                case NORD:
+                    positions.add(new Position(bateau.positionProue.x+i, bateau.positionProue.y));
+                    break;
+                case EST:
+                    positions.add(new Position(bateau.positionProue.x, bateau.positionProue.y-i));
+                    break;
+                case SUD:
+                    positions.add(new Position(bateau.positionProue.x-i, bateau.positionProue.y));
+                    break;
+                case OUEST:
+                    positions.add(new Position(bateau.positionProue.x, bateau.positionProue.y+i));
+                    break;
             }
         }
 
@@ -114,18 +112,38 @@ public class Bateau {
 
         switch (this.orientation) {
             case NORD:
-            case SUD:
                 for(int i=0; i<this.champTir; i++){
-                    tirsPossiblesList.add(new Position(this.positionProue.x-1-i, this.positionProue.y));
-                    tirsPossiblesList.add(new Position(this.positionProue.x+this.longueur+i, this.positionProue.y));
+                    tirsPossiblesList.add(new Position(this.positionProue.x-1-i, this.positionProue.y)); // +1+i
+                    tirsPossiblesList.add(new Position(this.positionProue.x+this.longueur+i, this.positionProue.y)); // -long-i
 
                     for(int j=0; j<this.longueur; j++){
-                        tirsPossiblesList.add(new Position(this.positionProue.x+j, this.positionProue.y-i-1));
-                        tirsPossiblesList.add(new Position(this.positionProue.x+j, this.positionProue.y+i+1));
+                        tirsPossiblesList.add(new Position(this.positionProue.x+j, this.positionProue.y-i-1)); // -j
+                        tirsPossiblesList.add(new Position(this.positionProue.x+j, this.positionProue.y+i+1)); // -j
+                    }
+                }
+                break;
+            case SUD:
+                for(int i=0; i<this.champTir; i++){
+                    tirsPossiblesList.add(new Position(this.positionProue.x+1+i, this.positionProue.y)); // +1+i
+                    tirsPossiblesList.add(new Position(this.positionProue.x-this.longueur-i, this.positionProue.y)); // -long-i
+
+                    for(int j=0; j<this.longueur; j++){
+                        tirsPossiblesList.add(new Position(this.positionProue.x-j, this.positionProue.y-i-1)); // -j
+                        tirsPossiblesList.add(new Position(this.positionProue.x-j, this.positionProue.y+i+1)); // -j
                     }
                 }
                 break;
             case EST:
+                for(int i=0; i<this.champTir; i++){
+                    tirsPossiblesList.add(new Position(this.positionProue.x, this.positionProue.y+1+i));
+                    tirsPossiblesList.add(new Position(this.positionProue.x, this.positionProue.y-this.longueur-i));
+
+                    for(int j=0; j<this.longueur; j++){
+                        tirsPossiblesList.add(new Position(this.positionProue.x-i-1, this.positionProue.y-j));
+                        tirsPossiblesList.add(new Position(this.positionProue.x+i+1, this.positionProue.y-j));
+                    }
+                }
+                break;
             case OUEST:
                 for(int i=0; i<this.champTir; i++){
                     tirsPossiblesList.add(new Position(this.positionProue.x, this.positionProue.y-1-i));

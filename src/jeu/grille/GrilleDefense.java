@@ -176,12 +176,12 @@ public class GrilleDefense extends Grille {
             for(int j=0; j<this.tailleGrille; j++) this.grille[i][j] = EtatCaseGrille.VIDE;
         }
 
-        for (Position itemPosition : this.positionsBateaux()) {
-            this.grille[itemPosition.x][itemPosition.y] = EtatCaseGrille.BATEAU;
-        }
-
         for (Position itemPosition : this.positionsTirsPossibles()) {
             this.grille[itemPosition.x][itemPosition.y] = EtatCaseGrille.CHAMP_TIR;
+        }
+
+        for (Position itemPosition : this.positionsBateaux()) {
+            this.grille[itemPosition.x][itemPosition.y] = EtatCaseGrille.BATEAU;
         }
 
         System.out.println("#####################################################");

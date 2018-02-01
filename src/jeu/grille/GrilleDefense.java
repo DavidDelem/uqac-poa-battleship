@@ -12,19 +12,39 @@ public class GrilleDefense extends Grille {
 
     private List<Bateau> bateauList;
 
-    public GrilleDefense(int tailleGrille){
-        super(tailleGrille);
+    public GrilleDefense(int tailleGrille, String nomJoueur){
+        super(tailleGrille, nomJoueur);
     }
 
     public boolean placerBateau(String identifiantBateau, Position positionProue, Orientation orientation) {
 
         Bateau bateau = creerBateau(identifiantBateau, orientation, positionProue);
 
-        if( !verifierExistanceBateau(bateau) && verifierPositionBateau(bateau) && verifierSuperpositionBateau(bateau)){
+        if( !verifierExistanceBateau(bateau) && verifierPositionBateau(bateau) && !verifierSuperpositionBateau(bateau)){
+            if(this.bateauList == null) this.bateauList = new ArrayList<>();
             this.bateauList.add(bateau);
             return true;
         }
         else return false;
+    }
+
+    public List<Bateau> bateauNonPlaces(){
+
+        List<Bateau> allBateauList = new ArrayList<>();
+        List<Bateau> bateauNonPlacesList = new ArrayList<>();
+
+
+        allBateauList.add(new ContreTorpilleur());
+        allBateauList.add(new Croiseur());
+        allBateauList.add(new PorteAvion());
+        allBateauList.add(new SousMarin());
+        allBateauList.add(new Torpilleur());
+
+        for(Bateau itemBateau : allBateauList){
+            if(!verifierExistanceBateau(itemBateau)) bateauNonPlacesList.add(itemBateau);
+        }
+
+        return bateauNonPlacesList;
     }
 
     private Bateau creerBateau(String identifiantBateau, Orientation orientation, Position positionProue){
@@ -61,6 +81,7 @@ public class GrilleDefense extends Grille {
 
     private boolean verifierExistanceBateau(Bateau bateau){
 
+        if(this.bateauList == null) return false;
         for (Bateau itemBateau: this.bateauList) {
             if(bateau.getClass().equals( itemBateau.getClass())) return true;
         }
@@ -90,38 +111,43 @@ public class GrilleDefense extends Grille {
         return true;
     }
 
-    private boolean verifierSuperpositionBateau(Bateau bateau){
+    private boolean verifierSuperpositionBateau(Bateau bateau) {
         List<Position> positionsPrises = new ArrayList<>();
 
-        for (Bateau itemBateau: this.bateauList) {
-            if(bateau != itemBateau) {
-                positionsPrises.addAll(Bateau.getPositions(itemBateau));
+        if (this.bateauList != null){
+            for (Bateau itemBateau : this.bateauList) {
+                if (bateau != itemBateau) {
+                    positionsPrises.addAll(Bateau.getPositions(itemBateau));
+                }
             }
         }
 
         for (Position position: Bateau.getPositions(bateau)) {
-            if (positionsPrises.contains(position)) return false;
+            if (positionsPrises.contains(position)) return true;
         }
 
-        return true;
+        return false;
     }
 
     private List<Position> positionsTirsPossibles(){
 
+        List<Position> tirsPossiblesTmpList = new ArrayList<>();
         List<Position> tirsPossiblesList = new ArrayList<>();
 
         //Recuperation des tirs possibles de chaque bateau
-        for (Bateau itemBateau: this.bateauList) {
-            tirsPossiblesList.addAll(itemBateau.tirsPossibles());
+        if(this.bateauList != null) {
+            for (Bateau itemBateau : this.bateauList) {
+                tirsPossiblesTmpList.addAll(itemBateau.tirsPossibles());
+            }
         }
 
         //Suppression des tirs hors de la grille
-        for(Position itemPosition : tirsPossiblesList){
-            if(itemPosition.x < 0
-                    || itemPosition.x >= this.tailleGrille
-                    || itemPosition.y < 0
-                    || itemPosition.y >= this.tailleGrille){
-                tirsPossiblesList.remove(itemPosition);
+        for(Position itemPosition : tirsPossiblesTmpList){
+            if(itemPosition.x >= 0
+                    && itemPosition.x < this.tailleGrille
+                    && itemPosition.y >= 0
+                    && itemPosition.y < this.tailleGrille){
+                tirsPossiblesList.add(itemPosition);
             }
         }
 
@@ -132,28 +158,35 @@ public class GrilleDefense extends Grille {
 
         List<Position> positionsBateaux = new ArrayList<>();
 
-        for(Bateau itemBateau : this.bateauList){
-            positionsBateaux.addAll(Bateau.getPositions(itemBateau));
+        if(this.bateauList != null) {
+            for (Bateau itemBateau : this.bateauList) {
+                positionsBateaux.addAll(Bateau.getPositions(itemBateau));
+            }
         }
+
         return positionsBateaux;
     }
 
 
     public void afficherGrille(){
 
+        char lettre = 'A';
+
         for(int i=0; i<this.tailleGrille; i++) {
             for(int j=0; j<this.tailleGrille; j++) this.grille[i][j] = EtatCaseGrille.VIDE;
         }
 
-        for(Position itemPosition : this.positionsBateaux()){
+        for (Position itemPosition : this.positionsBateaux()) {
             this.grille[itemPosition.x][itemPosition.y] = EtatCaseGrille.BATEAU;
         }
 
-        for(Position itemPosition : this.positionsTirsPossibles()){
+        for (Position itemPosition : this.positionsTirsPossibles()) {
             this.grille[itemPosition.x][itemPosition.y] = EtatCaseGrille.CHAMP_TIR;
         }
 
-        char lettre = 'A';
+        System.out.println("#####################################################");
+        System.out.println("     Grille défense de : " + this.nomJoueur);
+        System.out.println("#####################################################");
 
         System.out.print("    ");
         for(int i=0; i < this.tailleGrille; i++) {

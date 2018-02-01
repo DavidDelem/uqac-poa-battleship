@@ -5,7 +5,7 @@ import jeu.utils.Position;
 public class PorteAvion extends Bateau {
 
     public PorteAvion(){
-        super(5,2);
+        super("Porte-Avion", "PA",5,2);
     }
 
 }

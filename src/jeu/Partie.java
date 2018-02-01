@@ -39,19 +39,16 @@ public class Partie {
                 break;
         }
 
-        this.joueur1.getGrilleDefense().afficherGrille();
+        this.joueur1.initialiserGrilleDefense(); //SUD & EST PROBLEME !!!!!
+        this.joueur2.initialiserGrilleDefense();
 
-        /*TODO : Prochaines étapes
-        Créer la classe GrilleDefense
+        /*boolean joueur1Gagne = false;
+        boolean joueur2Gagne = false;
 
-        V1 : grille taille définie
-        V2 : creer une fonction selectionTailleGrille() et appeler ctor de GrilleDefense() avec ces valeurs
-
-        Faire l'initialisation pour J1 & J2
-
-        Boucler sur la partie jusqu'à ce qu'il y ait un gagnant*
-
-        Idee : une console pour chaque joueur ?? */
+        while(!joueur1Gagne && ! joueur2Gagne){
+            this.joueur1.jouer();
+            this.joueur2.jouer();
+        }*/
 
     }
 

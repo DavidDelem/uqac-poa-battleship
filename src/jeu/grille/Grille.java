@@ -1,6 +1,9 @@
 package jeu.grille;
 
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 public class Grille {
 
     enum EtatCaseGrille{
@@ -24,39 +27,18 @@ public class Grille {
 
     protected EtatCaseGrille[][] grille;
     protected int tailleGrille;
+    protected String nomJoueur;
 
-    public Grille(int tailleGrille){
+    public Grille(int tailleGrille, String nomJoueur){
 
         this.tailleGrille = tailleGrille;
+        this.nomJoueur = nomJoueur;
 
         this.grille = new EtatCaseGrille[tailleGrille][tailleGrille];
         for(int i=0; i<this.tailleGrille; i++) {
             for(int j=0; j<this.tailleGrille; j++) this.grille[i][j] = EtatCaseGrille.VIDE;
         }
 
-    }
-
-    public void afficherGrille(){
-        char lettre = 'A';
-
-        System.out.print("    ");
-        for(int i=0; i < this.tailleGrille; i++) {
-            System.out.print(" " + lettre + "  ");
-            lettre++;
-        }
-        System.out.println();
-        System.out.println("-------------------------------------------");
-
-        for(int i=0; i < this.tailleGrille; i++) {
-
-            System.out.print((i+1<10 ? (i+1)+" " : i+1) + " |");
-
-            for (int j = 0; j < this.tailleGrille; j++) {
-                System.out.print(" " + this.grille[i][j].getAffichage() + " |");
-            }
-            System.out.println();
-            System.out.println("-------------------------------------------");
-        }
     }
 
 }

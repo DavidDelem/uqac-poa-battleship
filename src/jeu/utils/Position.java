@@ -13,4 +13,8 @@ public class Position {
         this.x = x;
         this.y = y;
     }
+
+    public static int convertirColonne(char lettre){
+        return lettre - 65;
+    }
 }

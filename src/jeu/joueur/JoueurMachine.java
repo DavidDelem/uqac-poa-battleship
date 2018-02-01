@@ -9,8 +9,7 @@ public class JoueurMachine extends Joueur implements ComportementJoueur {
     }
 
     @Override
-    public GrilleDefense initialiserMaGrille() {
-        return null;
+    public void initialiserGrilleDefense() {
     }
 
     @Override

@@ -5,7 +5,7 @@ import jeu.utils.Position;
 public class Torpilleur extends Bateau {
 
     public Torpilleur(){
-        super(2,5);
+        super("Torpilleur", "T",2,5);
     }
 
 }

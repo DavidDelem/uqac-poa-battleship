@@ -118,6 +118,7 @@ public class JoueurHumain extends Joueur{
                     String[] sequence = input.split(",");
                     position.x = Position.convertirColonne(sequence[0].charAt(0));
                     position.y = Integer.parseInt(sequence[1]);
+                    erreurSelection = false;
                 }
             }
         } catch (IOException e) {

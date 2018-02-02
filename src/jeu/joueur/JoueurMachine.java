@@ -30,7 +30,7 @@ public class JoueurMachine extends Joueur{
             }
         }
 
-        this.grilleDefense.afficherGrille();
+//        this.grilleDefense.afficherGrille();
         System.out.println("L'IA à placé tout ses bateaux");
 
     }

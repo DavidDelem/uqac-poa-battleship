@@ -13,8 +13,8 @@ public class Joueur {
 
     public Joueur(String nom){
         this.nom = nom;
-        this.grilleDefense = new GrilleDefense(10, this.nom);
-        this.grilleAttaque = new GrilleAttaque(10, this.nom);
+        this.grilleDefense = new GrilleDefense(this.nom);
+        this.grilleAttaque = new GrilleAttaque(this.nom);
         this.droitDeplacement = false;
     }
 
@@ -44,4 +44,5 @@ public class Joueur {
     public Position recupererPositionTir() {
         return null;
     }
+
 }

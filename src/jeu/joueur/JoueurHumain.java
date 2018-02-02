@@ -2,6 +2,7 @@ package jeu.joueur;
 
 import jeu.Partie;
 import jeu.bateaux.*;
+import jeu.grille.Grille;
 import jeu.grille.GrilleDefense;
 import jeu.grille.ResultatPlacementBateau;
 import jeu.utils.Orientation;
@@ -32,7 +33,7 @@ public class JoueurHumain extends Joueur{
 
         while(this.grilleDefense.bateauNonPlaces().size()>0){
 
-            this.grilleDefense.afficherGrille();
+            this.afficherGrilles();
 
             System.out.println();
             System.out.println("Bateaux restants à placer :");
@@ -94,7 +95,7 @@ public class JoueurHumain extends Joueur{
         }
 
         //Aficher la grille de défense après le placement du dernier bateau
-        this.grilleDefense.afficherGrille();
+        this.afficherGrilles();
     }
 
     @Override
@@ -126,6 +127,60 @@ public class JoueurHumain extends Joueur{
         }
 
         return position;
+    }
+
+    public void afficherGrilles() {
+
+            char lettre = 'A';
+
+            System.out.println();
+            System.out.print("-------------GRILLE DE DEFENSE-------------");
+            System.out.print("              ");
+            System.out.println("-------------GRILLE D'ATTAQUE--------------");
+
+            System.out.println();
+            System.out.print("    ");
+            for(int i=0; i < Grille.tailleGrille; i++) {
+                System.out.print(" " + lettre + "  ");
+                lettre++;
+            }
+
+            System.out.print("                 ");
+            lettre = 'A';
+
+            for(int i=0; i < Grille.tailleGrille; i++) {
+                System.out.print(" " + lettre + "  ");
+                lettre++;
+            }
+
+            System.out.println();
+            System.out.print("-------------------------------------------");
+            System.out.print("              ");
+            System.out.println("-------------------------------------------");
+
+            for(int i=0; i < Grille.tailleGrille; i++) {
+
+                System.out.print((i+1<10 ? (i+1)+" " : i+1) + " |");
+
+                for (int j = 0; j < Grille.tailleGrille; j++) {
+                    System.out.print(" " + this.grilleDefense.getEtatPosition(i,j).getAffichage() + " |");
+                }
+
+                System.out.print("             ");
+
+                System.out.print((i+1<10 ? (i+1)+" " : i+1) + " |");
+
+                for (int j = 0; j < Grille.tailleGrille; j++) {
+                    System.out.print(" " + this.grilleAttaque.getEtatPosition(i,j).getAffichage() + " |");
+                }
+
+                System.out.println();
+                System.out.print("-------------------------------------------");
+                System.out.print("              ");
+                System.out.println("-------------------------------------------");
+            }
+
+        this.grilleDefense.mettreAJourGrille();
     }
 
 }

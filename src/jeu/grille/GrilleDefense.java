@@ -13,8 +13,8 @@ public class GrilleDefense extends Grille {
 
     private List<Bateau> bateauList;
 
-    public GrilleDefense(int tailleGrille, String nomJoueur){
-        super(tailleGrille, nomJoueur);
+    public GrilleDefense(String nomJoueur){
+        super(nomJoueur);
     }
 
     public ResultatPlacementBateau placerBateau(String identifiantBateau, Position positionProue, Orientation orientation) {
@@ -201,7 +201,7 @@ public class GrilleDefense extends Grille {
     }
 
 
-    public void afficherGrille(){
+    public void mettreAJourGrille(){
 
         for(int i=0; i<this.tailleGrille; i++) {
             for(int j=0; j<this.tailleGrille; j++) this.grille[i][j] = Etat.VIDE;
@@ -221,7 +221,7 @@ public class GrilleDefense extends Grille {
             this.grille[itemPosition.x][itemPosition.y] = Etat.BATEAU_TOUCHE;
         }
 
-        super.afficherGrille(true);
+//        super.afficherGrille(true);
     }
 
 }

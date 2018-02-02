@@ -5,8 +5,8 @@ import jeu.utils.Position;
 
 public class GrilleAttaque extends Grille {
 
-    public GrilleAttaque(int tailleGrille, String nomJoueur){
-        super(tailleGrille, nomJoueur);
+    public GrilleAttaque(String nomJoueur){
+        super(nomJoueur);
     }
 
 //    public void tirEffectue(Position position, boolean touche){
@@ -20,7 +20,7 @@ public class GrilleAttaque extends Grille {
         return false;
     }
 
-    public void afficherGrille() {
-        super.afficherGrille(false);
-    }
+//    public void afficherGrille() {
+//        super.afficherGrille(false);
+//    }
 }

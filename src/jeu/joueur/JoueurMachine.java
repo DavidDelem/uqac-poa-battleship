@@ -28,11 +28,9 @@ public class JoueurMachine extends Joueur implements ComportementJoueur {
                 y = random.nextInt(9);
                 orientation = Orientation.values()[new Random().nextInt(Orientation.values().length)];
             }
-
         }
 
         this.getGrilleDefense().afficherGrille();
-
         System.out.println("L'IA à placé tout ses bateaux");
 
     }

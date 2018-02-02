@@ -1,14 +1,11 @@
 package jeu.bateaux;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import jeu.utils.Orientation;
 import jeu.utils.Position;
-
-import javax.print.attribute.standard.OrientationRequested;
 
 public class Bateau {
 

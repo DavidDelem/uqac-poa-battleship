@@ -32,6 +32,7 @@ public class Joueur implements ComportementJoueur {
 
     @Override
     public void initialiserGrilleDefense() {
+
     }
 
     @Override

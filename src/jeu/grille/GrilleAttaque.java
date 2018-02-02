@@ -8,9 +8,13 @@ public class GrilleAttaque extends Grille {
         super(tailleGrille, nomJoueur);
     }
 
-    public void tirEffectue(Position position, boolean touche){
-        if(touche) this.grille[position.x][position.y] = EtatCaseGrille.TOUCHE;
-        else this.grille[position.x][position.y] = EtatCaseGrille.PAS_TOUCHE;
+//    public void tirEffectue(Position position, boolean touche){
+//        if(touche) this.grille[position.x][position.y] = EtatCaseGrille.TOUCHE;
+//        else this.grille[position.x][position.y] = EtatCaseGrille.PAS_TOUCHE;
+//    }
+
+    public Boolean tirer(Position position) {
+
     }
 
     public void afficherGrille(){

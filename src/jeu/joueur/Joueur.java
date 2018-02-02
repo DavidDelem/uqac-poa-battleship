@@ -2,24 +2,32 @@ package jeu.joueur;
 
 import jeu.grille.GrilleAttaque;
 import jeu.grille.GrilleDefense;
+import jeu.utils.Position;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+public class Joueur {
 
-public class Joueur implements ComportementJoueur {
-
-    private String nom;
-    private GrilleDefense grilleDefense;
-    private GrilleAttaque grilleAttaque;
+    protected String nom;
+    protected boolean droitDeplacement;
+    protected GrilleDefense grilleDefense;
+    protected GrilleAttaque grilleAttaque;
 
     public Joueur(String nom){
         this.nom = nom;
         this.grilleDefense = new GrilleDefense(10, this.nom);
         this.grilleAttaque = new GrilleAttaque(10, this.nom);
+        this.droitDeplacement = false;
     }
 
     public String getNom() {
         return nom;
+    }
+
+    public boolean getDroitDeplacement() {
+        return droitDeplacement;
+    }
+
+    public void setDroitDeplacement(boolean droitDeplacement) {
+        this.droitDeplacement = droitDeplacement;
     }
 
     public GrilleDefense getGrilleDefense() {
@@ -30,12 +38,10 @@ public class Joueur implements ComportementJoueur {
         return grilleAttaque;
     }
 
-    @Override
     public void initialiserGrilleDefense() {
-
     }
 
-    @Override
-    public void jouer() {
+    public Position recupererPositionTir() {
+        return null;
     }
 }

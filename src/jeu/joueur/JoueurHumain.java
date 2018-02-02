@@ -3,6 +3,7 @@ package jeu.joueur;
 import jeu.Partie;
 import jeu.bateaux.*;
 import jeu.grille.GrilleDefense;
+import jeu.grille.ResultatPlacementBateau;
 import jeu.utils.Orientation;
 import jeu.utils.Position;
 
@@ -12,7 +13,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JoueurHumain extends Joueur implements ComportementJoueur{
+public class JoueurHumain extends Joueur{
 
     protected BufferedReader br;
 
@@ -24,20 +25,23 @@ public class JoueurHumain extends Joueur implements ComportementJoueur{
     @Override
     public void initialiserGrilleDefense() {
 
-        while(this.getGrilleDefense().bateauNonPlaces().size()>0){
+        System.out.println();
+        System.out.println("#####################################################");
+        System.out.println("     Initialisation grille défense " + this.nom);
+        System.out.println("#####################################################");
 
-            this.getGrilleDefense().afficherGrille();
+        while(this.grilleDefense.bateauNonPlaces().size()>0){
+
+            this.grilleDefense.afficherGrille();
 
             System.out.println();
             System.out.println("Bateaux restants à placer :");
 
-            for(Bateau itemBateau : this.getGrilleDefense().bateauNonPlaces()){
+            for(Bateau itemBateau : this.grilleDefense.bateauNonPlaces()){
                 for(int i=0; i<itemBateau.getLongueur(); i++) System.out.print("# ");
                 System.out.print(" : "+itemBateau.getNom() + " [" + itemBateau.getIdentifiant() + "]");
                 System.out.println();
             }
-
-            System.out.println();
 
             String input="";
 
@@ -46,6 +50,7 @@ public class JoueurHumain extends Joueur implements ComportementJoueur{
 
                 while(erreurSelection){
 
+                    System.out.println();
                     System.out.println("Pour placer un bateau, indiquer la séquence IDENTIFIANT_BATEAU,COLONNE,LIGNE,ORIENTATION (Exemple CT,D,4,NORD) :");
 
                     input = br.readLine();
@@ -59,8 +64,8 @@ public class JoueurHumain extends Joueur implements ComportementJoueur{
                         System.out.println("Erreur : séquence invalide (syntaxe ou valeur) !");
                     } else {
 
-                        GrilleDefense.ResultatPlacementBateau resultatPlacementBateau =
-                                this.getGrilleDefense().placerBateau(sequence[0],
+                        ResultatPlacementBateau resultatPlacementBateau =
+                                this.grilleDefense.placerBateau(sequence[0],
                                 new Position(Integer.parseInt(sequence[2])-1, Position.convertirColonne(sequence[1].charAt(0))),
                                 Orientation.convertirOrientation(sequence[3]));
 
@@ -88,11 +93,38 @@ public class JoueurHumain extends Joueur implements ComportementJoueur{
 
         }
 
+        //Aficher la grille de défense après le placement du dernier bateau
+        this.grilleDefense.afficherGrille();
     }
 
     @Override
-    public void jouer() {
-        System.out.println("Joue depuis JoueurHumain");
+    public Position recupererPositionTir() {
+        Position position = new Position(0,0);
+
+        String input="";
+
+        try {
+            boolean erreurSelection = true;
+
+            while(erreurSelection){
+
+                System.out.println("Effectuer un tir en indiquant la séquence COLONNE,LIGNE (Exemple B,5) :");
+
+                input = br.readLine();
+
+                if( !input.matches("^[A-J],([1-9]|10)$") ){
+                    System.out.println("Erreur : séquence invalide (syntaxe ou valeur) !");
+                } else {
+                    String[] sequence = input.split(",");
+                    position.x = Position.convertirColonne(sequence[0].charAt(0));
+                    position.y = Integer.parseInt(sequence[1]);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return position;
     }
 
 }

@@ -3,6 +3,8 @@ package jeu;
 import jeu.joueur.Joueur;
 import jeu.joueur.JoueurHumain;
 import jeu.joueur.JoueurMachine;
+import jeu.utils.Orientation;
+import jeu.utils.Position;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,23 +40,61 @@ public class Partie {
                 this.joueur2 = new JoueurMachine("J2-IA");
                 break;
         }
-//
-//        this.joueur1.initialiserGrilleDefense();
-        this.joueur2.initialiserGrilleDefense();
 
-        /*boolean joueur1Gagne = false;
+        /*this.joueur1.initialiserGrilleDefense();
+        this.joueur2.initialiserGrilleDefense();*/
+
+        this.joueur1.getGrilleDefense().placerBateau("CT",
+                new Position(0, 0),
+                Orientation.NORD);
+        this.joueur1.getGrilleDefense().placerBateau("C",
+                new Position(0, 1),
+                Orientation.NORD);
+        this.joueur1.getGrilleDefense().placerBateau("PA",
+                new Position(0, 2),
+                Orientation.NORD);
+        this.joueur1.getGrilleDefense().placerBateau("SM",
+                new Position(0, 3),
+                Orientation.NORD);
+        this.joueur1.getGrilleDefense().placerBateau("T",
+                new Position(0, 4),
+                Orientation.NORD);
+
+        this.joueur2.getGrilleDefense().placerBateau("CT",
+                new Position(0, 0),
+                Orientation.NORD);
+        this.joueur2.getGrilleDefense().placerBateau("C",
+                new Position(0, 1),
+                Orientation.NORD);
+        this.joueur2.getGrilleDefense().placerBateau("PA",
+                new Position(0, 2),
+                Orientation.NORD);
+        this.joueur2.getGrilleDefense().placerBateau("SM",
+                new Position(0, 3),
+                Orientation.NORD);
+        this.joueur2.getGrilleDefense().placerBateau("T",
+                new Position(0, 4),
+                Orientation.NORD);
+
+        boolean joueur1Gagne = false;
         boolean joueur2Gagne = false;
 
+        int cptTour = 1;
         while(!joueur1Gagne && ! joueur2Gagne){
-            this.joueur1.jouer();
-            this.joueur2.jouer();
-        }*/
+            joueur1Gagne = jouer(this.joueur1, this.joueur2, cptTour);
+            joueur2Gagne = jouer(this.joueur2, this.joueur1, cptTour);
+            cptTour++;
+        }
 
     }
 
     private void selectionModeJeu(){
-
         String input="";
+
+        System.out.println();
+        System.out.println("#####################################################");
+        System.out.println("    Choix du mode de jeu");
+        System.out.println("#####################################################");
 
         try {
             boolean erreurSelection = true;
@@ -80,4 +120,36 @@ public class Partie {
         if(input.toUpperCase().equals("B")) this.modeJeu = ModeJeu.MACHINE;
         if(input.toUpperCase().equals("C")) System.exit(0);
     }
+
+    private boolean jouer(Joueur joueurJoue, Joueur joueurAdversaire, int numTour){
+
+        System.out.println();
+        System.out.println("#####################################################");
+        System.out.println("    Tour numéro " + numTour + " de "+joueurJoue.getNom());
+        System.out.println("#####################################################");
+
+        /*--------------------*/
+        /* Tour du joueurJoue */
+        /*--------------------*/
+        //Affichage des grilles du joueur
+        if(joueurJoue.getClass() == JoueurHumain.class){
+            joueurJoue.getGrilleAttaque().afficherGrille();
+            joueurJoue.getGrilleDefense().afficherGrille();
+        }
+
+        //Récupération de la position du tir de joueurJoue
+        Position positionTir = joueurJoue.recupererPositionTir();
+        //MAJ Grille defense joueurAdversaire
+        boolean joueurAdversaireTouche = joueurAdversaire.getGrilleDefense().verifierTirAdversaire(positionTir);
+        //MAJ Grille attaque de joueurJoue
+        joueurJoue.getGrilleAttaque().tir(positionTir, joueurAdversaireTouche);
+
+        //joueurAdversaire n'a pas le droit de déplacer un bateau si joueurJoue a touché un de ses bateaux
+        if(joueurAdversaireTouche) joueurAdversaire.setDroitDeplacement(false);
+        else joueurAdversaire.setDroitDeplacement(true);
+
+        //TODO : renvoyer true quand tous les bateaux adverses sont coulés !
+        return false;
+    }
+
 }

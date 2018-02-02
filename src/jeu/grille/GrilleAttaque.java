@@ -1,5 +1,6 @@
 package jeu.grille;
 
+import jeu.utils.Etat;
 import jeu.utils.Position;
 
 public class GrilleAttaque extends Grille {
@@ -13,37 +14,13 @@ public class GrilleAttaque extends Grille {
 //        else this.grille[position.x][position.y] = EtatCaseGrille.PAS_TOUCHE;
 //    }
 
-    public Boolean tirer(Position position) {
-
+    public boolean tir(Position position, boolean touche) {
+        if(touche) this.grille[position.x][position.y] = Etat.TOUCHE;
+        else this.grille[position.x][position.y] = Etat.PAS_TOUCHE;
+        return false;
     }
 
-    public void afficherGrille(){
-
-        char lettre = 'A';
-
-        System.out.println("#####################################################");
-        System.out.println("     Grille attaque de : " + this.nomJoueur);
-        System.out.println("#####################################################");
-
-        System.out.print("    ");
-        for(int i=0; i < this.tailleGrille; i++) {
-            System.out.print(" " + lettre + "  ");
-            lettre++;
-        }
-        System.out.println();
-        System.out.println("-------------------------------------------");
-
-        for(int i=0; i < this.tailleGrille; i++) {
-
-            System.out.print((i+1<10 ? (i+1)+" " : i+1) + " |");
-
-            for (int j = 0; j < this.tailleGrille; j++) {
-                System.out.print(" " + this.grille[i][j].getAffichage() + " |");
-            }
-            System.out.println();
-            System.out.println("-------------------------------------------");
-        }
+    public void afficherGrille() {
+        super.afficherGrille(false);
     }
-
-
 }

@@ -2,6 +2,7 @@ package jeu.grille;
 
 import javafx.geometry.Pos;
 import jeu.bateaux.*;
+import jeu.utils.Etat;
 import jeu.utils.Orientation;
 import jeu.utils.Position;
 
@@ -9,13 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GrilleDefense extends Grille {
-
-    public enum ResultatPlacementBateau{
-        SUPERPOSITION,
-        DEJA_PLACE,
-        HORS_GRILLE,
-        OK
-    }
 
     private List<Bateau> bateauList;
 
@@ -132,16 +126,15 @@ public class GrilleDefense extends Grille {
         if (this.bateauList != null){
             for (Bateau itemBateau : this.bateauList) {
                 if (bateau != itemBateau) {
-                    positionsPrises.addAll(Bateau.getPositions(itemBateau));
+                    positionsPrises.addAll(Bateau.getPositions(itemBateau, null));
                 }
             }
         }
 
-        for (Position position: Bateau.getPositions(bateau)) {
+        for (Position position: Bateau.getPositions(bateau, null)) {
             for(Position positionPrise: positionsPrises) {
                 if(position.equals(positionPrise)) return true;
             }
-//            if (positionsPrises.contains(position)) return true;
         }
         return false;
     }
@@ -171,58 +164,64 @@ public class GrilleDefense extends Grille {
         return tirsPossiblesList;
     }
 
-    private List<Position> positionsBateaux(){
+    private List<Position> positionsBateaux(Etat etatCaseBateau){
 
         List<Position> positionsBateaux = new ArrayList<>();
 
         if(this.bateauList != null) {
             for (Bateau itemBateau : this.bateauList) {
-                positionsBateaux.addAll(Bateau.getPositions(itemBateau));
+                positionsBateaux.addAll(Bateau.getPositions(itemBateau, etatCaseBateau));
             }
         }
 
         return positionsBateaux;
     }
 
+    public boolean verifierTirAdversaire(Position positionTir){
+
+        Bateau bateauCoule = null;
+
+        if(this.bateauList != null) {
+            for (Bateau itemBateau : this.bateauList) {
+                for(Position itemPositionBateau : Bateau.getPositions(itemBateau, Etat.BATEAU_NON_TOUCHE)){
+                    if(itemPositionBateau.equals(positionTir)){
+                        System.out.println("Bateau touché !");
+                        if(itemBateau.toucher(positionTir)) bateauCoule = itemBateau;
+                        System.out.println(itemBateau.getNom() + " de l'adversaire coulé !");
+                        return true;
+                    }
+                    else System.out.println("Tir dans le vide !");
+                }
+            }
+
+            if(bateauCoule != null) this.bateauList.remove(bateauCoule);
+        }
+
+        return false;
+    }
+
 
     public void afficherGrille(){
 
-        char lettre = 'A';
-
         for(int i=0; i<this.tailleGrille; i++) {
-            for(int j=0; j<this.tailleGrille; j++) this.grille[i][j] = EtatCaseGrille.VIDE;
+            for(int j=0; j<this.tailleGrille; j++) this.grille[i][j] = Etat.VIDE;
         }
 
         for (Position itemPosition : this.positionsTirsPossibles()) {
-            this.grille[itemPosition.x][itemPosition.y] = EtatCaseGrille.CHAMP_TIR;
+            this.grille[itemPosition.x][itemPosition.y] = Etat.CHAMP_TIR;
         }
 
-        for (Position itemPosition : this.positionsBateaux()) {
-            this.grille[itemPosition.x][itemPosition.y] = EtatCaseGrille.BATEAU;
+        for (Position itemPosition : this.positionsBateaux(Etat.BATEAU_NON_TOUCHE)) {
+
+            this.grille[itemPosition.x][itemPosition.y] = Etat.BATEAU_NON_TOUCHE;
         }
 
-        System.out.println("#####################################################");
-        System.out.println("     Grille défense de : " + this.nomJoueur);
-        System.out.println("#####################################################");
+        for (Position itemPosition : this.positionsBateaux(Etat.BATEAU_TOUCHE)) {
 
-        System.out.print("    ");
-        for(int i=0; i < this.tailleGrille; i++) {
-            System.out.print(" " + lettre + "  ");
-            lettre++;
+            this.grille[itemPosition.x][itemPosition.y] = Etat.BATEAU_TOUCHE;
         }
-        System.out.println();
-        System.out.println("-------------------------------------------");
 
-        for(int i=0; i < this.tailleGrille; i++) {
-
-            System.out.print((i+1<10 ? (i+1)+" " : i+1) + " |");
-
-            for (int j = 0; j < this.tailleGrille; j++) {
-                System.out.print(" " + this.grille[i][j].getAffichage() + " |");
-            }
-            System.out.println();
-            System.out.println("-------------------------------------------");
-        }
+        super.afficherGrille(true);
     }
 
 }

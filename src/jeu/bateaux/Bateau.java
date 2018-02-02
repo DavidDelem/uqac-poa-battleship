@@ -4,21 +4,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import jeu.utils.Etat;
 import jeu.utils.Orientation;
 import jeu.utils.Position;
 
 public class Bateau {
 
-    enum EtatCaseBateau{
-        TOUCHE,
-        PAS_TOUCHE
-    }
-
     private String nom, identifiant;
     private int longueur, champTir;
+    private boolean coule;
     private Orientation orientation;
-    private EtatBateau etatBateau;
-    private List<EtatCaseBateau> caseBateauList;
+    private List<Etat> caseBateauList;
     private Position positionProue;
 
     public Bateau(String nom, String identifiant, int longueur, int champTir){
@@ -28,11 +24,11 @@ public class Bateau {
         this.longueur = longueur;
         this.champTir = champTir;
         this.orientation = Orientation.NORD;
-        this.etatBateau = EtatBateau.PAS_COULE;
         this.positionProue = new Position(0,0);
+        this.coule = false;
 
         caseBateauList = new ArrayList<>();
-        for(int i=0; i<longueur; i++) caseBateauList.add(EtatCaseBateau.PAS_TOUCHE);
+        for(int i=0; i<longueur; i++) caseBateauList.add(Etat.BATEAU_NON_TOUCHE);
     }
 
     public void setOrientation(Orientation orientation){
@@ -67,41 +63,55 @@ public class Bateau {
         return identifiant;
     }
 
-    public EtatBateau toucher(int indexCaseTouchee){
 
-        if(etatBateau != EtatBateau.COULE){
-            this.caseBateauList.set(indexCaseTouchee, EtatCaseBateau.TOUCHE);
+    public boolean toucher(Position position){
 
-            if(Collections.frequency(this.caseBateauList, EtatCaseBateau.TOUCHE) >= 2){
-                this.etatBateau = EtatBateau.COULE;
+        if(!this.coule){
+
+            switch (this.orientation) {
+                case NORD:
+                case SUD:
+                    this.caseBateauList.set(Math.abs(this.positionProue.x-position.x),Etat.BATEAU_TOUCHE);
+                    break;
+                case EST:
+                case OUEST:
+                    this.caseBateauList.set(Math.abs(this.positionProue.y-position.y),Etat.BATEAU_TOUCHE);
+                    break;
+            }
+
+            if(Collections.frequency(this.caseBateauList, Etat.BATEAU_TOUCHE) >= 2){
+                this.coule = true;
             }
         }
-        return this.etatBateau;
+
+        return this.coule;
     }
 
-    public static List<Position> getPositions(Bateau bateau) {
+    public static List<Position> getPositions(Bateau bateau, Etat etatCaseBateau) {
 
         List<Position> positions = new ArrayList<>();
 
         for(int i=0 ; i<bateau.longueur; i++){
-            switch (bateau.orientation) {
-                case NORD:
-                    positions.add(new Position(bateau.positionProue.x+i, bateau.positionProue.y));
-                    break;
-                case EST:
-                    positions.add(new Position(bateau.positionProue.x, bateau.positionProue.y-i));
-                    break;
-                case SUD:
-                    positions.add(new Position(bateau.positionProue.x-i, bateau.positionProue.y));
-                    break;
-                case OUEST:
-                    positions.add(new Position(bateau.positionProue.x, bateau.positionProue.y+i));
-                    break;
+
+            if(etatCaseBateau == null || bateau.caseBateauList.get(i) == etatCaseBateau){
+                switch (bateau.orientation) {
+                    case NORD:
+                        positions.add(new Position(bateau.positionProue.x+i, bateau.positionProue.y));
+                        break;
+                    case EST:
+                        positions.add(new Position(bateau.positionProue.x, bateau.positionProue.y-i));
+                        break;
+                    case SUD:
+                        positions.add(new Position(bateau.positionProue.x-i, bateau.positionProue.y));
+                        break;
+                    case OUEST:
+                        positions.add(new Position(bateau.positionProue.x, bateau.positionProue.y+i));
+                        break;
+                }
             }
         }
 
         return positions;
-
     }
 
     public List<Position> tirsPossibles(){

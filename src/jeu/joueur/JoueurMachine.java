@@ -1,7 +1,6 @@
 package jeu.joueur;
 
 import jeu.bateaux.Bateau;
-import jeu.grille.GrilleDefense;
 import jeu.grille.ResultatPlacementBateau;
 import jeu.utils.Orientation;
 import jeu.utils.Position;
@@ -36,8 +35,13 @@ public class JoueurMachine extends Joueur{
 
     }
 
+
     @Override
     public Position recupererPositionTir() {
-        return null;
+
+        Random random = new Random();
+        Position position = new Position(random.nextInt(9), random.nextInt(9));
+        return position;
+
     }
 }

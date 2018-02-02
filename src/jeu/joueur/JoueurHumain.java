@@ -117,8 +117,8 @@ public class JoueurHumain extends Joueur{
                     System.out.println("Erreur : séquence invalide (syntaxe ou valeur) !");
                 } else {
                     String[] sequence = input.split(",");
-                    position.x = Position.convertirColonne(sequence[0].charAt(0));
-                    position.y = Integer.parseInt(sequence[1]);
+                    position.x = Integer.parseInt(sequence[1]) - 1;
+                    position.y = Position.convertirColonne(sequence[0].charAt(0));
                     erreurSelection = false;
                 }
             }

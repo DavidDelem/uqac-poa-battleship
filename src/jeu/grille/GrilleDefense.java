@@ -186,17 +186,19 @@ public class GrilleDefense extends Grille {
                 for(Position itemPositionBateau : Bateau.getPositions(itemBateau, Etat.BATEAU_NON_TOUCHE)){
                     if(itemPositionBateau.equals(positionTir)){
                         System.out.println("Bateau touché !");
-                        if(itemBateau.toucher(positionTir)) bateauCoule = itemBateau;
-                        System.out.println(itemBateau.getNom() + " de l'adversaire coulé !");
+                        if(itemBateau.toucherCouler(positionTir)){
+                            bateauCoule = itemBateau;
+                            System.out.println(itemBateau.getNom() + " de l'adversaire coulé !");
+                        }
                         return true;
                     }
-                    else System.out.println("Tir dans le vide !");
                 }
             }
 
             if(bateauCoule != null) this.bateauList.remove(bateauCoule);
         }
 
+        System.out.println("Tir dans le vide !");
         return false;
     }
 
@@ -212,12 +214,10 @@ public class GrilleDefense extends Grille {
         }
 
         for (Position itemPosition : this.positionsBateaux(Etat.BATEAU_NON_TOUCHE)) {
-
             this.grille[itemPosition.x][itemPosition.y] = Etat.BATEAU_NON_TOUCHE;
         }
 
         for (Position itemPosition : this.positionsBateaux(Etat.BATEAU_TOUCHE)) {
-
             this.grille[itemPosition.x][itemPosition.y] = Etat.BATEAU_TOUCHE;
         }
 

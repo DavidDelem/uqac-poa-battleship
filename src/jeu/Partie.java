@@ -124,17 +124,16 @@ public class Partie {
     private boolean jouer(Joueur joueurJoue, Joueur joueurAdversaire, int numTour){
 
         System.out.println();
-        System.out.println("#####################################################");
-        System.out.println("    Tour numéro " + numTour + " de "+joueurJoue.getNom());
-        System.out.println("#####################################################");
+        System.out.println("#####################################################################################################");
+        System.out.println("                                         Tour numéro " + numTour + " de "+joueurJoue.getNom());
+        System.out.println("#####################################################################################################");
 
         /*--------------------*/
         /* Tour du joueurJoue */
         /*--------------------*/
         //Affichage des grilles du joueur
         if(joueurJoue.getClass() == JoueurHumain.class){
-            joueurJoue.getGrilleAttaque().afficherGrille();
-            joueurJoue.getGrilleDefense().afficherGrille();
+            ((JoueurHumain)joueurJoue).afficherGrilles();
         }
 
         //Récupération de la position du tir de joueurJoue

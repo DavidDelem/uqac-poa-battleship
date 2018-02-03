@@ -12,17 +12,18 @@ public class Bateau {
 
     private String nom, identifiant;
     private int longueur, champTir;
+    private boolean champDeTirVertical;
     private boolean coule;
     private Orientation orientation;
     private List<Etat> caseBateauList;
     private Position positionProue;
-
-    public Bateau(String nom, String identifiant, int longueur, int champTir){
+    public Bateau(String nom, String identifiant, int longueur, int champTir, boolean champTirVertical) {
 
         this.nom = nom;
         this.identifiant = identifiant;
         this.longueur = longueur;
         this.champTir = champTir;
+        this.champDeTirVertical = champTirVertical;
         this.orientation = Orientation.NORD;
         this.positionProue = new Position(0,0);
         this.coule = false;
@@ -124,49 +125,66 @@ public class Bateau {
         switch (this.orientation) {
             case NORD:
                 for(int i=0; i<this.champTir; i++){
-                    tirsPossiblesList.add(new Position(this.positionProue.x-1-i, this.positionProue.y));
-                    tirsPossiblesList.add(new Position(this.positionProue.x+this.longueur+i, this.positionProue.y));
+                    if(this.champDeTirVertical) {
+                        tirsPossiblesList.add(new Position(this.positionProue.x-1-i, this.positionProue.y));
+                        tirsPossiblesList.add(new Position(this.positionProue.x+this.longueur+i, this.positionProue.y));
+                    }
 
                     for(int j=0; j<this.longueur; j++){
                         tirsPossiblesList.add(new Position(this.positionProue.x+j, this.positionProue.y)); //position bateau
-                        tirsPossiblesList.add(new Position(this.positionProue.x+j, this.positionProue.y-i-1));
-                        tirsPossiblesList.add(new Position(this.positionProue.x+j, this.positionProue.y+i+1));
+
+                        if(!this.champDeTirVertical) {
+                            tirsPossiblesList.add(new Position(this.positionProue.x + j, this.positionProue.y - i - 1));
+                            tirsPossiblesList.add(new Position(this.positionProue.x + j, this.positionProue.y + i + 1));
+                        }
                     }
                 }
                 break;
             case SUD:
                 for(int i=0; i<this.champTir; i++){
-                    tirsPossiblesList.add(new Position(this.positionProue.x+1+i, this.positionProue.y));
-                    tirsPossiblesList.add(new Position(this.positionProue.x-this.longueur-i, this.positionProue.y));
+                    if(this.champDeTirVertical) {
+                        tirsPossiblesList.add(new Position(this.positionProue.x + 1 + i, this.positionProue.y));
+                        tirsPossiblesList.add(new Position(this.positionProue.x - this.longueur - i, this.positionProue.y));
+                    }
 
                     for(int j=0; j<this.longueur; j++){
                         tirsPossiblesList.add(new Position(this.positionProue.x-j, this.positionProue.y)); //position bateau
-                        tirsPossiblesList.add(new Position(this.positionProue.x-j, this.positionProue.y-i-1));
-                        tirsPossiblesList.add(new Position(this.positionProue.x-j, this.positionProue.y+i+1));
+                        if(!this.champDeTirVertical) {
+                            tirsPossiblesList.add(new Position(this.positionProue.x - j, this.positionProue.y - i - 1));
+                            tirsPossiblesList.add(new Position(this.positionProue.x - j, this.positionProue.y + i + 1));
+                        }
                     }
                 }
                 break;
             case EST:
                 for(int i=0; i<this.champTir; i++){
-                    tirsPossiblesList.add(new Position(this.positionProue.x, this.positionProue.y+1+i));
-                    tirsPossiblesList.add(new Position(this.positionProue.x, this.positionProue.y-this.longueur-i));
+                    if(this.champDeTirVertical) {
+                        tirsPossiblesList.add(new Position(this.positionProue.x, this.positionProue.y + 1 + i));
+                        tirsPossiblesList.add(new Position(this.positionProue.x, this.positionProue.y - this.longueur - i));
+                    }
 
                     for(int j=0; j<this.longueur; j++){
                         tirsPossiblesList.add(new Position(this.positionProue.x, this.positionProue.y-j)); //position bateau
-                        tirsPossiblesList.add(new Position(this.positionProue.x-i-1, this.positionProue.y-j));
-                        tirsPossiblesList.add(new Position(this.positionProue.x+i+1, this.positionProue.y-j));
+                        if(!this.champDeTirVertical) {
+                            tirsPossiblesList.add(new Position(this.positionProue.x - i - 1, this.positionProue.y - j));
+                            tirsPossiblesList.add(new Position(this.positionProue.x + i + 1, this.positionProue.y - j));
+                        }
                     }
                 }
                 break;
             case OUEST:
                 for(int i=0; i<this.champTir; i++){
-                    tirsPossiblesList.add(new Position(this.positionProue.x, this.positionProue.y-1-i));
-                    tirsPossiblesList.add(new Position(this.positionProue.x, this.positionProue.y+this.longueur+i));
+                    if(this.champDeTirVertical) {
+                        tirsPossiblesList.add(new Position(this.positionProue.x, this.positionProue.y - 1 - i));
+                        tirsPossiblesList.add(new Position(this.positionProue.x, this.positionProue.y + this.longueur + i));
+                    }
 
                     for(int j=0; j<this.longueur; j++){
                         tirsPossiblesList.add(new Position(this.positionProue.x, this.positionProue.y+j)); //position bateau
-                        tirsPossiblesList.add(new Position(this.positionProue.x-i-1, this.positionProue.y+j));
-                        tirsPossiblesList.add(new Position(this.positionProue.x+i+1, this.positionProue.y+j));
+                        if(!this.champDeTirVertical) {
+                            tirsPossiblesList.add(new Position(this.positionProue.x - i - 1, this.positionProue.y + j));
+                            tirsPossiblesList.add(new Position(this.positionProue.x + i + 1, this.positionProue.y + j));
+                        }
                     }
                 }
                 break;

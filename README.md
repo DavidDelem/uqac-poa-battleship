@@ -12,7 +12,9 @@ Ce qui a été réalisé:
 
 - [x] 5 bateaux. Il est facile d'ajouter de nouveaux bateaux au besoin
 
-- [x] On ne peut tirer que dans le champ de tir des bateaux, et celui ci est affiché visuellement
+- [x] On ne peut tirer que dans le champ de tir des bateaux. 
+Certains bateaux ont un champ de tir uniquement vertical,
+d'autres uniquement horizontal. Le champ de tir est affiché pour aider le joueur à choisir.
 
 - [x] Si l'adversaire ne touche pas de bateau, j'ai le droit de déplacer le mien de deux cases
 

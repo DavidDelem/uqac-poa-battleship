@@ -5,7 +5,7 @@ public enum Etat{
     BATEAU_NON_TOUCHE('#'),
     BATEAU_TOUCHE('X'),
     CHAMP_TIR('*'),
-    TOUCHE('#'),
+    TOUCHE('O'),
     PAS_TOUCHE('X');
 
     private final char affichage;

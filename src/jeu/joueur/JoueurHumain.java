@@ -190,7 +190,6 @@ public class JoueurHumain extends Joueur{
             System.out.print("-------------------------------------------");
             System.out.print("              ");
             System.out.println("-------------------------------------------");
-            System.out.println();
         }
     }
 

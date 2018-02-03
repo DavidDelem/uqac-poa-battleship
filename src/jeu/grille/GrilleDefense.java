@@ -260,8 +260,6 @@ public class GrilleDefense extends Grille {
 
     public void mettreAJourGrille(){
 
-        System.out.println(this.bateauList.size());
-
         for(int i=0; i<this.tailleGrille; i++) {
             for(int j=0; j<this.tailleGrille; j++) this.grille[i][j] = Etat.VIDE;
         }
@@ -270,15 +268,14 @@ public class GrilleDefense extends Grille {
             this.grille[itemPosition.x][itemPosition.y] = Etat.CHAMP_TIR;
         }
 
-        for (Position itemPosition : this.positionsBateaux(Etat.BATEAU_NON_TOUCHE)) {
-            this.grille[itemPosition.x][itemPosition.y] = Etat.BATEAU_NON_TOUCHE;
-        }
+//        for (Position itemPosition : this.positionsBateaux(Etat.BATEAU_NON_TOUCHE)) {
+//            this.grille[itemPosition.x][itemPosition.y] = Etat.BATEAU_NON_TOUCHE;
+//        }
+//
+//        for (Position itemPosition : this.positionsBateaux(Etat.BATEAU_TOUCHE)) {
+//            this.grille[itemPosition.x][itemPosition.y] = Etat.BATEAU_TOUCHE;
+//        }
 
-        for (Position itemPosition : this.positionsBateaux(Etat.BATEAU_TOUCHE)) {
-            this.grille[itemPosition.x][itemPosition.y] = Etat.BATEAU_TOUCHE;
-        }
-
-//        super.afficherGrille(true);
     }
 
 }

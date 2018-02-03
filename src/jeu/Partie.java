@@ -41,40 +41,40 @@ public class Partie {
                 break;
         }
 
-        /*this.joueur1.initialiserGrilleDefense();
-        this.joueur2.initialiserGrilleDefense();*/
+        this.joueur1.initialiserGrilleDefense();
+        this.joueur2.initialiserGrilleDefense();
 
-        this.joueur1.getGrilleDefense().placerBateau("CT",
-                new Position(0, 0),
-                Orientation.NORD);
-        this.joueur1.getGrilleDefense().placerBateau("C",
-                new Position(0, 1),
-                Orientation.NORD);
-        this.joueur1.getGrilleDefense().placerBateau("PA",
-                new Position(0, 2),
-                Orientation.NORD);
-        this.joueur1.getGrilleDefense().placerBateau("SM",
-                new Position(0, 3),
-                Orientation.NORD);
-        this.joueur1.getGrilleDefense().placerBateau("T",
-                new Position(0, 4),
-                Orientation.NORD);
-
-        this.joueur2.getGrilleDefense().placerBateau("CT",
-                new Position(9, 9),
-                Orientation.SUD);
-        this.joueur2.getGrilleDefense().placerBateau("C",
-                new Position(9, 8),
-                Orientation.SUD);
-        this.joueur2.getGrilleDefense().placerBateau("PA",
-                new Position(9, 7),
-                Orientation.SUD);
-        this.joueur2.getGrilleDefense().placerBateau("SM",
-                new Position(9, 6),
-                Orientation.SUD);
-        this.joueur2.getGrilleDefense().placerBateau("T",
-                new Position(9, 5),
-                Orientation.SUD);
+//        this.joueur1.getGrilleDefense().placerBateau("CT",
+//                new Position(0, 0),
+//                Orientation.NORD);
+//        this.joueur1.getGrilleDefense().placerBateau("C",
+//                new Position(0, 1),
+//                Orientation.NORD);
+//        this.joueur1.getGrilleDefense().placerBateau("PA",
+//                new Position(0, 2),
+//                Orientation.NORD);
+//        this.joueur1.getGrilleDefense().placerBateau("SM",
+//                new Position(0, 3),
+//                Orientation.NORD);
+//        this.joueur1.getGrilleDefense().placerBateau("T",
+//                new Position(0, 4),
+//                Orientation.NORD);
+//
+//        this.joueur2.getGrilleDefense().placerBateau("CT",
+//                new Position(9, 9),
+//                Orientation.SUD);
+//        this.joueur2.getGrilleDefense().placerBateau("C",
+//                new Position(9, 8),
+//                Orientation.SUD);
+//        this.joueur2.getGrilleDefense().placerBateau("PA",
+//                new Position(9, 7),
+//                Orientation.SUD);
+//        this.joueur2.getGrilleDefense().placerBateau("SM",
+//                new Position(9, 6),
+//                Orientation.SUD);
+//        this.joueur2.getGrilleDefense().placerBateau("T",
+//                new Position(9, 5),
+//                Orientation.SUD);
 
         boolean joueur1Gagne = false;
         boolean joueur2Gagne = false;

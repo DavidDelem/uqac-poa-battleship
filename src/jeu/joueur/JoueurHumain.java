@@ -61,13 +61,13 @@ public class JoueurHumain extends Joueur{
 
                     String[] sequence = input.split(",");
 
-                    if( !input.matches("^(CT|C|PA|SM|T),[A-J],([1-9]|10),(NORD|EST|SUD|OUEST)$") ){
+                    if( !input.matches("^(CT|C|PA|SM|T|ct|c|pa|sm|t),([A-J]|[a-j]),([1-9]|10),(NORD|EST|SUD|OUEST)$") ){
                         System.out.println("Erreur : séquence invalide (syntaxe ou valeur) !");
                     } else {
 
                         ResultatPlacementBateau resultatPlacementBateau =
-                                this.grilleDefense.placerBateau(sequence[0],
-                                new Position(Integer.parseInt(sequence[2])-1, Position.convertirColonne(sequence[1].charAt(0))),
+                                this.grilleDefense.placerBateau(sequence[0].toUpperCase(),
+                                new Position(Integer.parseInt(sequence[2])-1, Position.convertirColonne((sequence[1].toUpperCase()).charAt(0))),
                                 Orientation.convertirOrientation(sequence[3]));
 
                         switch (resultatPlacementBateau) {
@@ -113,13 +113,23 @@ public class JoueurHumain extends Joueur{
 
                 input = br.readLine();
 
-                if( !input.matches("^[A-J],([1-9]|10)$") ){
+                if( !input.matches("^([A-J]|[a-j]),([1-9]|10)$") ){
                     System.out.println("Erreur : séquence invalide (syntaxe ou valeur) !");
                 } else {
+
                     String[] sequence = input.split(",");
                     position.x = Integer.parseInt(sequence[1]) - 1;
-                    position.y = Position.convertirColonne(sequence[0].charAt(0));
-                    erreurSelection = false;
+                    position.y = Position.convertirColonne((sequence[0].toUpperCase()).charAt(0));
+
+                    for(Position itemPosition : this.grilleDefense.positionsTirsPossibles()) {
+                        if(itemPosition.equals(position))  {
+                            erreurSelection = false;
+                            break;
+                        }
+                    }
+
+                    if(erreurSelection) System.out.println("Erreur : tir hors de portée !");
+
                 }
             }
         } catch (IOException e) {
@@ -131,56 +141,57 @@ public class JoueurHumain extends Joueur{
 
     public void afficherGrilles() {
 
-            char lettre = 'A';
+        char lettre = 'A';
 
-            System.out.println();
-            System.out.print("-------------GRILLE DE DEFENSE-------------");
-            System.out.print("              ");
-            System.out.println("-------------GRILLE D'ATTAQUE--------------");
+        this.grilleDefense.mettreAJourGrille();
 
-            System.out.println();
-            System.out.print("    ");
-            for(int i=0; i < Grille.tailleGrille; i++) {
-                System.out.print(" " + lettre + "  ");
-                lettre++;
+        System.out.println();
+        System.out.print("-------------GRILLE DE DEFENSE-------------");
+        System.out.print("              ");
+        System.out.println("-------------GRILLE D'ATTAQUE--------------");
+
+        System.out.println();
+        System.out.print("    ");
+        for(int i=0; i < Grille.tailleGrille; i++) {
+            System.out.print(" " + lettre + "  ");
+            lettre++;
+        }
+
+        System.out.print("                 ");
+        lettre = 'A';
+
+        for(int i=0; i < Grille.tailleGrille; i++) {
+            System.out.print(" " + lettre + "  ");
+            lettre++;
+        }
+
+        System.out.println();
+        System.out.print("-------------------------------------------");
+        System.out.print("              ");
+        System.out.println("-------------------------------------------");
+
+        for(int i=0; i < Grille.tailleGrille; i++) {
+
+            System.out.print((i+1<10 ? (i+1)+" " : i+1) + " |");
+
+            for (int j = 0; j < Grille.tailleGrille; j++) {
+                System.out.print(" " + this.grilleDefense.getEtatPosition(i,j).getAffichage() + " |");
             }
 
-            System.out.print("                 ");
-            lettre = 'A';
+            System.out.print("             ");
 
-            for(int i=0; i < Grille.tailleGrille; i++) {
-                System.out.print(" " + lettre + "  ");
-                lettre++;
+            System.out.print((i+1<10 ? (i+1)+" " : i+1) + " |");
+
+            for (int j = 0; j < Grille.tailleGrille; j++) {
+                System.out.print(" " + this.grilleAttaque.getEtatPosition(i,j).getAffichage() + " |");
             }
 
             System.out.println();
             System.out.print("-------------------------------------------");
             System.out.print("              ");
             System.out.println("-------------------------------------------");
-
-            for(int i=0; i < Grille.tailleGrille; i++) {
-
-                System.out.print((i+1<10 ? (i+1)+" " : i+1) + " |");
-
-                for (int j = 0; j < Grille.tailleGrille; j++) {
-                    System.out.print(" " + this.grilleDefense.getEtatPosition(i,j).getAffichage() + " |");
-                }
-
-                System.out.print("             ");
-
-                System.out.print((i+1<10 ? (i+1)+" " : i+1) + " |");
-
-                for (int j = 0; j < Grille.tailleGrille; j++) {
-                    System.out.print(" " + this.grilleAttaque.getEtatPosition(i,j).getAffichage() + " |");
-                }
-
-                System.out.println();
-                System.out.print("-------------------------------------------");
-                System.out.print("              ");
-                System.out.println("-------------------------------------------");
-            }
-
-        this.grilleDefense.mettreAJourGrille();
+            System.out.println();
+        }
     }
 
 }

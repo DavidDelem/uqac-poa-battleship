@@ -61,20 +61,20 @@ public class Partie {
                 Orientation.NORD);
 
         this.joueur2.getGrilleDefense().placerBateau("CT",
-                new Position(0, 0),
-                Orientation.NORD);
+                new Position(9, 9),
+                Orientation.SUD);
         this.joueur2.getGrilleDefense().placerBateau("C",
-                new Position(0, 1),
-                Orientation.NORD);
+                new Position(9, 8),
+                Orientation.SUD);
         this.joueur2.getGrilleDefense().placerBateau("PA",
-                new Position(0, 2),
-                Orientation.NORD);
+                new Position(9, 7),
+                Orientation.SUD);
         this.joueur2.getGrilleDefense().placerBateau("SM",
-                new Position(0, 3),
-                Orientation.NORD);
+                new Position(9, 6),
+                Orientation.SUD);
         this.joueur2.getGrilleDefense().placerBateau("T",
-                new Position(0, 4),
-                Orientation.NORD);
+                new Position(9, 5),
+                Orientation.SUD);
 
         boolean joueur1Gagne = false;
         boolean joueur2Gagne = false;
@@ -91,10 +91,20 @@ public class Partie {
     private void selectionModeJeu(){
         String input="";
 
+        System.out.println("  ____            _     _     _           _____   _       _         ");
+        System.out.println(" |  _ \\          | |   | |   | |         / ____| | |     (_)        ");
+        System.out.println(" | |_) |   __ _  | |_  | |_  | |   ___  | (___   | |__    _   _ __  ");
+        System.out.println(" |  _ <   / _` | | __| | __| | |  / _ \\  \\___ \\  | '_ \\  | | | '_ \\ ");
+        System.out.println(" | |_) | | (_| | | |_  | |_  | | |  __/  ____) | | | | | | | | |_) |");
+        System.out.println(" |____/   \\__,_|  \\__|  \\__| |_|  \\___| |_____/  |_| |_| |_| | .__/ ");
+        System.out.println("                                                             | |    ");
+        System.out.println(" David Delemotte & Rénald Morice - UQAC 8INF957 - Hiver 2018 |_|    ");
+        System.out.println();
         System.out.println();
         System.out.println("#####################################################");
         System.out.println("    Choix du mode de jeu");
         System.out.println("#####################################################");
+        System.out.println();
 
         try {
             boolean erreurSelection = true;
@@ -127,6 +137,7 @@ public class Partie {
         System.out.println("#####################################################################################################");
         System.out.println("                                         Tour numéro " + numTour + " de "+joueurJoue.getNom());
         System.out.println("#####################################################################################################");
+        System.out.println();
 
         /*--------------------*/
         /* Tour du joueurJoue */

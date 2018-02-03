@@ -139,7 +139,7 @@ public class GrilleDefense extends Grille {
         return false;
     }
 
-    private List<Position> positionsTirsPossibles(){
+    public List<Position> positionsTirsPossibles(){
 
         List<Position> tirsPossiblesTmpList = new ArrayList<>();
         List<Position> tirsPossiblesList = new ArrayList<>();
@@ -180,30 +180,35 @@ public class GrilleDefense extends Grille {
     public boolean verifierTirAdversaire(Position positionTir){
 
         Bateau bateauCoule = null;
+        boolean touche = false;
 
         if(this.bateauList != null) {
             for (Bateau itemBateau : this.bateauList) {
                 for(Position itemPositionBateau : Bateau.getPositions(itemBateau, Etat.BATEAU_NON_TOUCHE)){
                     if(itemPositionBateau.equals(positionTir)){
-                        System.out.println("Bateau touché !");
-                        if(itemBateau.toucherCouler(positionTir)){
-                            bateauCoule = itemBateau;
-                            System.out.println(itemBateau.getNom() + " de l'adversaire coulé !");
-                        }
-                        return true;
+                        touche = true;
+                        if(itemBateau.toucherCouler(positionTir)) bateauCoule = itemBateau;
                     }
                 }
             }
-
             if(bateauCoule != null) this.bateauList.remove(bateauCoule);
         }
 
-        System.out.println("Tir dans le vide !");
-        return false;
+        if(touche) {
+            System.out.println("Bateau touché !");
+            if(bateauCoule != null) System.out.println(bateauCoule.getNom() + " de l'adversaire coulé !");
+            return true;
+        } else {
+            System.out.println("Tir dans le vide !");
+            return false;
+        }
+
     }
 
 
     public void mettreAJourGrille(){
+
+        System.out.println(this.bateauList.size());
 
         for(int i=0; i<this.tailleGrille; i++) {
             for(int j=0; j<this.tailleGrille; j++) this.grille[i][j] = Etat.VIDE;

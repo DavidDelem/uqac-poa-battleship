@@ -37,6 +37,58 @@ public class GrilleDefense extends Grille {
         }
     }
 
+    public ResultatPlacementBateau deplacerBateau(String identifiantBateau, Orientation orientation, int nbCases) {
+
+        int indexBateauDeplace = -1;
+        Position positionProueInitiale = null;
+        Position positionProueFinale = null;
+
+        // On récupére le bateau que l'utilisateur veut déplacer
+
+        for(int i = 0; i < this.bateauList.size(); i++) {
+            if(this.bateauList.get(i).getIdentifiant().equals(identifiantBateau)) {
+                indexBateauDeplace = i;
+                positionProueInitiale = this.bateauList.get(i).getPositionProue();
+            }
+        }
+
+        // On vérifie que le déplacement est autorisé
+        // Si oui, en fonction de l'orientation du déplacement, on lui donne sa nouvelle position
+
+        if(nbCases < 0 || nbCases > 2 || positionProueInitiale == null) {
+            return ResultatPlacementBateau.HORS_ZONE_DEPLACEMENT;
+        } else {
+            switch (orientation) {
+                case OUEST:
+                    positionProueFinale = new Position(positionProueInitiale.x - nbCases, positionProueInitiale.y);
+                    break;
+                case EST:
+                    positionProueFinale = new Position(positionProueInitiale.x + nbCases, positionProueInitiale.y);
+                    break;
+                case NORD:
+                    positionProueFinale = new Position(positionProueInitiale.x, positionProueInitiale.y - nbCases);
+                    break;
+                case SUD:
+                    positionProueFinale = new Position(positionProueInitiale.x, positionProueInitiale.y + nbCases);
+                    break;
+            }
+            this.bateauList.get(indexBateauDeplace).setPositionProue(positionProueFinale);
+        }
+
+        // On contrôle la validité de la nouvelle position: dans les limites de la carte et sans superposition.
+        // Si ce n'est pas valide on réinitialise la position initiale
+
+        if(verifierPositionBateau(bateauList.get(indexBateauDeplace))) {
+            bateauList.get(indexBateauDeplace).setPositionProue(positionProueInitiale);
+            return ResultatPlacementBateau.HORS_GRILLE;
+        } else if(verifierSuperpositionBateau(bateauList.get(indexBateauDeplace))) {
+            bateauList.get(indexBateauDeplace).setPositionProue(positionProueInitiale);
+            return ResultatPlacementBateau.SUPERPOSITION;
+        }
+
+        return ResultatPlacementBateau.OK;
+    }
+
     public List<Bateau> bateauNonPlaces(){
 
         List<Bateau> allBateauList = new ArrayList<>();

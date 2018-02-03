@@ -4,18 +4,18 @@
 <h3>Devoir 1</h3>
 <p>David Delemotte, Rénald Morice</p>
 
-[x] Deux joueur, le second pouvant être un humain ou l'IA
+- [x] Deux joueur, le second pouvant être un humain ou l'IA
 
-[x] Affichage des deux grilles: grille de défence et grille d'attaque
+- [x] Affichage des deux grilles: grille de défence et grille d'attaque
 
-[x] 5 bateaux. Il est facile d'ajouter de nouveaux bateaux au besoin
+- [x] 5 bateaux. Il est facile d'ajouter de nouveaux bateaux au besoin
 
-[x] On ne peut tirer que dans le champ de tir des bateaux, et celui ci est affiché visuellement
+- [x] On ne peut tirer que dans le champ de tir des bateaux, et celui ci est affiché visuellement
 
-[x] Si l'adversaire ne touche pas de bateau, j'ai le droit de déplacer le mien de deux cases
+- [x] Si l'adversaire ne touche pas de bateau, j'ai le droit de déplacer le mien de deux cases
 
-[x] Un bateau coule après avoir été touché deux fois, il disparait alors de la carte
+- [x] Un bateau coule après avoir été touché deux fois, il disparait alors de la carte
 
-[x] Le programme ne plante pas: des messages d'erreurs s'affichent en cas de saisie invalide
+- [x] Le programme ne plante pas: des messages d'erreurs s'affichent en cas de saisie invalide
 
-[x] Le joueur qui n'a plus aucun bateau perd
+- [x] Le joueur qui n'a plus aucun bateau perd

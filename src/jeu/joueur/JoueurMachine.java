@@ -30,7 +30,6 @@ public class JoueurMachine extends Joueur{
             }
         }
 
-//        this.grilleDefense.afficherGrille();
         System.out.println("L'IA à placé tout ses bateaux");
 
     }
@@ -46,7 +45,7 @@ public class JoueurMachine extends Joueur{
     }
 
     @Override
-    public void gererDeplacementBateau() {
-
+    public boolean gererDeplacementBateau() {
+        return false;
     }
 }

@@ -10,6 +10,13 @@ public enum Etat{
 
     private final char affichage;
 
+    /**
+     * Initialise l'état
+     *
+     * @param affichage l'état
+     * @return
+     */
+
     private Etat(char affichage) {
         this.affichage = affichage;
     }

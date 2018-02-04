@@ -12,6 +12,13 @@ public class Grille {
     protected Etat[][] grille;
     protected String nomJoueur;
 
+    /**
+     * Initialise la grille
+     *
+     * @param nomJoueur le nom du joueur
+     * @return
+     */
+
     public Grille(String nomJoueur){
 
         this.nomJoueur = nomJoueur;
@@ -22,6 +29,14 @@ public class Grille {
         }
 
     }
+
+    /**
+     * Récupére l'état de la grille à une position
+     *
+     * @param x la position en x
+     * @param y la position en y
+     * @return l'état de la grille à la position demandée
+     */
 
     public Etat getEtatPosition(int x, int y) {
         return grille[x][y];

@@ -17,6 +17,18 @@ public class Bateau {
     private Orientation orientation;
     private List<Etat> caseBateauList;
     private Position positionProue;
+
+    /**
+     * Initialise un bateau
+     *
+     * @param nom le nom du bateau
+     * @param identifiant l'identifiant du bateau
+     * @param longueur longueur du bateau
+     * @param champTir longueur du champ de tir en nombre de cases
+     * @param champTirVertical true pour champ de tir est vertical, false pour horizontal
+     * @return
+     */
+
     public Bateau(String nom, String identifiant, int longueur, int champTir, boolean champTirVertical) {
 
         this.nom = nom;
@@ -64,6 +76,12 @@ public class Bateau {
         return identifiant;
     }
 
+    /**
+     * Touche un bateau et met son état à coulé si nécessaire
+     *
+     * @param position la position du touché
+     * @return  true si le bateau est coulé, false sinon
+     */
 
     public boolean toucherCouler(Position position){
 
@@ -92,6 +110,14 @@ public class Bateau {
         return this.coule;
     }
 
+    /**
+     * Récupération de la liste des positions d'un bateau (cases prises par le bateau)
+     *
+     * @param bateau le bateau dont on veut connaitre les positions
+     * @param etatCaseBateau récupérer uniquement les cases non touchées ou uniquement les cases touchées
+     * @return  Une liste des positions du bateau
+     */
+
     public static List<Position> getPositions(Bateau bateau, Etat etatCaseBateau) {
 
         List<Position> positions = new ArrayList<>();
@@ -118,6 +144,13 @@ public class Bateau {
 
         return positions;
     }
+
+    /**
+     * Récupération de la liste des tirs possibles pour un bateau
+     * en fonction de la taille de son champ de tir et de son orientation
+     *
+     * @return  Une liste des positions de tir possibles
+     */
 
     public List<Position> tirsPossibles(){
         List<Position> tirsPossiblesList = new ArrayList<>();

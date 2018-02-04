@@ -22,6 +22,12 @@ public class Partie {
     private ModeJeu modeJeu;
     private BufferedReader br;
 
+    /**
+     * Lance la partie
+     *
+     * @return
+     */
+
     public Partie() {
         // Demander si le joueur joue contre un autre ou contre la machine
         // Initiliser les grilles
@@ -108,6 +114,13 @@ public class Partie {
 
     }
 
+    /**
+     * Permet la sélection du mode de jeu
+     * contre un humain ou contre l'IA
+     *
+     * @return
+     */
+
     private void selectionModeJeu(){
         String input="";
 
@@ -150,6 +163,16 @@ public class Partie {
         if(input.toUpperCase().equals("B")) this.modeJeu = ModeJeu.MACHINE;
         if(input.toUpperCase().equals("C")) System.exit(0);
     }
+
+    /**
+     * Permet de jouer un tour
+     *
+     * @param joueurJoue le joueur qui joue à ce tour
+     * @param joueurAdversaire le joueur adversaire
+     * @param numTour le numéro du tour
+     *
+     * @return true si le joueur à gagné, false sinon
+     */
 
     private boolean jouer(Joueur joueurJoue, Joueur joueurAdversaire, int numTour){
 

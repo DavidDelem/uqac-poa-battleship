@@ -140,10 +140,31 @@ public class JoueurHumain extends Joueur{
     }
 
     @Override
-    public void gererDeplacementBateau() {
+    public boolean gererDeplacementBateau() {
         Position position = new Position(0,0);
 
         String input="";
+
+        try {
+            boolean erreurSelection = true;
+
+            while(erreurSelection) {
+
+                System.out.println("Vous pouvez déplacer un bateau, souhaitez-vous réaliser un déplacement ? [Y pour oui, N pour non] :");
+
+                input = br.readLine();
+
+                if( !input.matches("^(Y|N|y|n)$") ){
+                    System.out.println("Erreur : séquence invalide (syntaxe ou valeur) !");
+                } else {
+                    if(input.equals("N") || input.equals("n")) return false;
+                    else erreurSelection = false;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
         try {
             boolean erreurSelection = true;
@@ -183,6 +204,8 @@ public class JoueurHumain extends Joueur{
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return true;
 
     }
 

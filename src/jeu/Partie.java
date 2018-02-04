@@ -168,12 +168,14 @@ public class Partie {
         }
 
         // Déplacement du bateau
-        if(joueurJoue.getDroitDeplacement()) {
-            joueurJoue.gererDeplacementBateau();
-
-            if(joueurJoue.getClass() == JoueurHumain.class){
-                ((JoueurHumain)joueurJoue).afficherGrilles();
-            }
+        if(numTour == 1){
+            System.out.println("Pas de déplacement possible au tour 1 !");
+        }
+        else if (!joueurJoue.getDroitDeplacement()){
+            System.out.println("Vous avez été touché au tour précédent, vous ne pouvez pas déplacer de bateau !");
+        }
+        else if(joueurJoue.gererDeplacementBateau() && joueurJoue.getClass() == JoueurHumain.class){
+            ((JoueurHumain)joueurJoue).afficherGrilles();
         }
 
         //Récupération de la position du tir de joueurJoue

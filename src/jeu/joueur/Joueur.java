@@ -45,8 +45,8 @@ public class Joueur {
         return null;
     }
 
-    public void gererDeplacementBateau() {
-
+    public boolean gererDeplacementBateau() {
+        return false;
     }
 
 

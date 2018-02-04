@@ -41,40 +41,40 @@ public class Partie {
                 break;
         }
 
-        this.joueur1.initialiserGrilleDefense();
-        this.joueur2.initialiserGrilleDefense();
+//        this.joueur1.initialiserGrilleDefense();
+//        this.joueur2.initialiserGrilleDefense();
 
-//        this.joueur1.getGrilleDefense().placerBateau("CT",
-//                new Position(0, 0),
-//                Orientation.NORD);
-//        this.joueur1.getGrilleDefense().placerBateau("C",
-//                new Position(0, 1),
-//                Orientation.NORD);
-//        this.joueur1.getGrilleDefense().placerBateau("PA",
-//                new Position(0, 2),
-//                Orientation.NORD);
-//        this.joueur1.getGrilleDefense().placerBateau("SM",
-//                new Position(0, 3),
-//                Orientation.NORD);
-//        this.joueur1.getGrilleDefense().placerBateau("T",
-//                new Position(0, 4),
-//                Orientation.NORD);
-//
-//        this.joueur2.getGrilleDefense().placerBateau("CT",
-//                new Position(9, 9),
-//                Orientation.SUD);
-//        this.joueur2.getGrilleDefense().placerBateau("C",
-//                new Position(9, 8),
-//                Orientation.SUD);
-//        this.joueur2.getGrilleDefense().placerBateau("PA",
-//                new Position(9, 7),
-//                Orientation.SUD);
-//        this.joueur2.getGrilleDefense().placerBateau("SM",
-//                new Position(9, 6),
-//                Orientation.SUD);
-//        this.joueur2.getGrilleDefense().placerBateau("T",
-//                new Position(9, 5),
-//                Orientation.SUD);
+        this.joueur1.getGrilleDefense().placerBateau("CT",
+                new Position(0, 0),
+                Orientation.NORD);
+        this.joueur1.getGrilleDefense().placerBateau("C",
+                new Position(0, 1),
+                Orientation.NORD);
+        this.joueur1.getGrilleDefense().placerBateau("PA",
+                new Position(0, 2),
+                Orientation.NORD);
+        this.joueur1.getGrilleDefense().placerBateau("SM",
+                new Position(0, 3),
+                Orientation.NORD);
+        this.joueur1.getGrilleDefense().placerBateau("T",
+                new Position(0, 4),
+                Orientation.NORD);
+
+        this.joueur2.getGrilleDefense().placerBateau("CT",
+                new Position(9, 9),
+                Orientation.SUD);
+        this.joueur2.getGrilleDefense().placerBateau("C",
+                new Position(9, 8),
+                Orientation.SUD);
+        this.joueur2.getGrilleDefense().placerBateau("PA",
+                new Position(9, 7),
+                Orientation.SUD);
+        this.joueur2.getGrilleDefense().placerBateau("SM",
+                new Position(9, 6),
+                Orientation.SUD);
+        this.joueur2.getGrilleDefense().placerBateau("T",
+                new Position(9, 5),
+                Orientation.SUD);
 
         boolean joueur1Gagne = false;
         boolean joueur2Gagne = false;
@@ -84,6 +84,26 @@ public class Partie {
             joueur1Gagne = jouer(this.joueur1, this.joueur2, cptTour);
             joueur2Gagne = jouer(this.joueur2, this.joueur1, cptTour);
             cptTour++;
+        }
+
+        if(joueur1Gagne) {
+            System.out.println(" __      __  _____    _____   _______    ____    _____   _____    ______     _   _   _ ");
+            System.out.println(" \\ \\    / / |_   _|  / ____| |__   __|  / __ \\  |_   _| |  __ \\  |  ____|   | | | | | |");
+            System.out.println("  \\ \\  / /    | |   | |         | |    | |  | |   | |   | |__) | | |__      | | | | | |");
+            System.out.println("   \\ \\/ /     | |   | |         | |    | |  | |   | |   |  _  /  |  __|     | | | | | |");
+            System.out.println("    \\  /     _| |_  | |____     | |    | |__| |  _| |_  | | \\ \\  | |____    |_| |_| |_|");
+            System.out.println("     \\/     |_____|  \\_____|    |_|     \\____/  |_____| |_|  \\_\\ |______|   (_) (_) (_)");
+            System.out.println("                                                             ");
+            System.out.println("                     Pour joueur1: " + joueur1.getNom());
+        } else if(joueur2Gagne) {
+            System.out.println(" __      __  _____    _____   _______    ____    _____   _____    ______     _   _   _ ");
+            System.out.println(" \\ \\    / / |_   _|  / ____| |__   __|  / __ \\  |_   _| |  __ \\  |  ____|   | | | | | |");
+            System.out.println("  \\ \\  / /    | |   | |         | |    | |  | |   | |   | |__) | | |__      | | | | | |");
+            System.out.println("   \\ \\/ /     | |   | |         | |    | |  | |   | |   |  _  /  |  __|     | | | | | |");
+            System.out.println("    \\  /     _| |_  | |____     | |    | |__| |  _| |_  | | \\ \\  | |____    |_| |_| |_|");
+            System.out.println("     \\/     |_____|  \\_____|    |_|     \\____/  |_____| |_|  \\_\\ |______|   (_) (_) (_)");
+            System.out.println("                                                             ");
+            System.out.println("                     Pour joueur2: " + joueur2.getNom());
         }
 
     }
@@ -147,6 +167,15 @@ public class Partie {
             ((JoueurHumain)joueurJoue).afficherGrilles();
         }
 
+        // Déplacement du bateau
+        if(joueurJoue.getDroitDeplacement()) {
+            joueurJoue.gererDeplacementBateau();
+
+            if(joueurJoue.getClass() == JoueurHumain.class){
+                ((JoueurHumain)joueurJoue).afficherGrilles();
+            }
+        }
+
         //Récupération de la position du tir de joueurJoue
         Position positionTir = joueurJoue.recupererPositionTir();
         //MAJ Grille defense joueurAdversaire
@@ -158,7 +187,7 @@ public class Partie {
         if(joueurAdversaireTouche) joueurAdversaire.setDroitDeplacement(false);
         else joueurAdversaire.setDroitDeplacement(true);
 
-        //TODO : renvoyer true quand tous les bateaux adverses sont coulés !
+        if(joueurAdversaire.getGrilleDefense().getNombreBateau() == 0) return true;
         return false;
     }
 

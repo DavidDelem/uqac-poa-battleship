@@ -139,6 +139,53 @@ public class JoueurHumain extends Joueur{
         return position;
     }
 
+    @Override
+    public void gererDeplacementBateau() {
+        Position position = new Position(0,0);
+
+        String input="";
+
+        try {
+            boolean erreurSelection = true;
+
+            while(erreurSelection) {
+
+                System.out.println("Indiquez le bateau à déplacer [CT,OUEST,2] :");
+
+                input = br.readLine();
+
+                if( !input.matches("^(CT|C|PA|SM|T|ct|c|pa|sm|t),(NORD|EST|SUD|OUEST),([0-2])$") ){
+                    System.out.println("Erreur : séquence invalide (syntaxe ou valeur) !");
+                } else {
+
+                    String[] sequence = input.split(",");
+
+                    ResultatPlacementBateau resultatPlacementBateau =
+                            this.grilleDefense.deplacerBateau(sequence[0].toUpperCase(),
+                                    Orientation.convertirOrientation(sequence[1]),
+                                    Integer.parseInt(sequence[2]));
+
+                    switch (resultatPlacementBateau) {
+                        case HORS_GRILLE:
+                            System.out.println("Erreur : Bateau en dehors de la grille !");
+                            break;
+                        case SUPERPOSITION:
+                            System.out.println("Erreur : bateau superposé !");
+                            break;
+                        case OK:
+                            erreurSelection = false;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public void afficherGrilles() {
 
         char lettre = 'A';

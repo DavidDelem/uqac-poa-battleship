@@ -60,16 +60,16 @@ public class GrilleDefense extends Grille {
         } else {
             switch (orientation) {
                 case OUEST:
-                    positionProueFinale = new Position(positionProueInitiale.x - nbCases, positionProueInitiale.y);
-                    break;
-                case EST:
-                    positionProueFinale = new Position(positionProueInitiale.x + nbCases, positionProueInitiale.y);
-                    break;
-                case NORD:
                     positionProueFinale = new Position(positionProueInitiale.x, positionProueInitiale.y - nbCases);
                     break;
-                case SUD:
+                case EST:
                     positionProueFinale = new Position(positionProueInitiale.x, positionProueInitiale.y + nbCases);
+                    break;
+                case NORD:
+                    positionProueFinale = new Position(positionProueInitiale.x - nbCases, positionProueInitiale.y);
+                    break;
+                case SUD:
+                    positionProueFinale = new Position(positionProueInitiale.x + nbCases, positionProueInitiale.y);
                     break;
             }
             this.bateauList.get(indexBateauDeplace).setPositionProue(positionProueFinale);
@@ -78,7 +78,7 @@ public class GrilleDefense extends Grille {
         // On contrôle la validité de la nouvelle position: dans les limites de la carte et sans superposition.
         // Si ce n'est pas valide on réinitialise la position initiale
 
-        if(verifierPositionBateau(bateauList.get(indexBateauDeplace))) {
+        if(!verifierPositionBateau(bateauList.get(indexBateauDeplace))) {
             bateauList.get(indexBateauDeplace).setPositionProue(positionProueInitiale);
             return ResultatPlacementBateau.HORS_GRILLE;
         } else if(verifierSuperpositionBateau(bateauList.get(indexBateauDeplace))) {
@@ -257,6 +257,9 @@ public class GrilleDefense extends Grille {
 
     }
 
+    public int getNombreBateau() {
+        return bateauList.size();
+    }
 
     public void mettreAJourGrille(){
 
@@ -268,13 +271,13 @@ public class GrilleDefense extends Grille {
             this.grille[itemPosition.x][itemPosition.y] = Etat.CHAMP_TIR;
         }
 
-//        for (Position itemPosition : this.positionsBateaux(Etat.BATEAU_NON_TOUCHE)) {
-//            this.grille[itemPosition.x][itemPosition.y] = Etat.BATEAU_NON_TOUCHE;
-//        }
-//
-//        for (Position itemPosition : this.positionsBateaux(Etat.BATEAU_TOUCHE)) {
-//            this.grille[itemPosition.x][itemPosition.y] = Etat.BATEAU_TOUCHE;
-//        }
+        for (Position itemPosition : this.positionsBateaux(Etat.BATEAU_NON_TOUCHE)) {
+            this.grille[itemPosition.x][itemPosition.y] = Etat.BATEAU_NON_TOUCHE;
+        }
+
+        for (Position itemPosition : this.positionsBateaux(Etat.BATEAU_TOUCHE)) {
+            this.grille[itemPosition.x][itemPosition.y] = Etat.BATEAU_TOUCHE;
+        }
 
     }
 

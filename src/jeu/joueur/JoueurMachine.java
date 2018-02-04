@@ -44,4 +44,9 @@ public class JoueurMachine extends Joueur{
         return position;
 
     }
+
+    @Override
+    public void gererDeplacementBateau() {
+
+    }
 }

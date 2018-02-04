@@ -190,6 +190,10 @@ public class Bateau {
                 break;
         }
 
+        if(this.getClass() == ContreTorpilleur.class){
+            return tirsPossiblesList;
+        }
+
         return tirsPossiblesList;
     }
 

@@ -3,9 +3,6 @@ package jeu.grille;
 
 import jeu.utils.Etat;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
 public class Grille {
 
     public static final int tailleGrille = 10;

@@ -10,14 +10,15 @@ import jeu.utils.Position;
 
 public class Bateau {
 
-    private String nom, identifiant;
-    private int longueur, champTir;
-    private boolean champDeTirVertical;
-    private boolean coule;
-    private Orientation orientation;
-    private List<Etat> caseBateauList;
-    private Position positionProue;
-    public Bateau(String nom, String identifiant, int longueur, int champTir, boolean champTirVertical) {
+    protected String nom, identifiant;
+    protected int longueur, champTir;
+    protected boolean champDeTirVertical;
+    protected boolean coule;
+    protected Orientation orientation;
+    protected List<Etat> caseBateauList;
+    protected Position positionProue;
+
+    Bateau(String nom, String identifiant, int longueur, int champTir, boolean champTirVertical) {
 
         this.nom = nom;
         this.identifiant = identifiant;

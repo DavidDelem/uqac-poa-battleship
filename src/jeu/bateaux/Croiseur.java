@@ -1,5 +1,6 @@
 package jeu.bateaux;
 
+import jeu.utils.Etat;
 import jeu.utils.Position;
 
 public class Croiseur extends Bateau {

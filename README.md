@@ -20,4 +20,4 @@ Ce qui a été réalisé:
 
 Le diagramme des classes de notre projet est le suivant:
 
-![Diagramme des classes](img/classdiagram?raw=true "Diagramme des classes")
+![Diagramme des classes](img/classdiagram.png?raw=true "Diagramme des classes")

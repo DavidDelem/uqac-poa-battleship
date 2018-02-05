@@ -52,8 +52,11 @@ public class JoueurHumain extends Joueur{
             System.out.println("Bateaux restants à placer :");
 
             for(Bateau itemBateau : this.grilleDefense.bateauNonPlaces()){
+                System.out.print("[" + itemBateau.getIdentifiant() + "] "+itemBateau.getNom() +", distance de tir : "+itemBateau.getChampTir());
+                if(itemBateau.getChampDeTirVertical()) System.out.print(", champ de tir en longueur");
+                else System.out.print(", champ de tir en largeur");
+                System.out.print(", taille : ");
                 for(int i=0; i<itemBateau.getLongueur(); i++) System.out.print("# ");
-                System.out.print(" : "+itemBateau.getNom() + " [" + itemBateau.getIdentifiant() + "]");
                 System.out.println();
             }
 
@@ -163,12 +166,11 @@ public class JoueurHumain extends Joueur{
      * Permet à l'utilisateur de déplacer son bateau si il le souhaite et si il en a le droit
      * En cas d'erreur de saisie il est invité à recommencer
      *
-     * @return true si la personne veut déplacer le bateau, false si la personne ne veut pas déplacer le bateau
+     * @return true si la personne déplace le bateau, false si la personne ne déplace pas le bateau
      */
 
     @Override
     public boolean gererDeplacementBateau() {
-        Position position = new Position(0,0);
 
         String input="";
 

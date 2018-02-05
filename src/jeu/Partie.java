@@ -47,10 +47,10 @@ public class Partie {
                 break;
         }
 
-//        this.joueur1.initialiserGrilleDefense();
-//        this.joueur2.initialiserGrilleDefense();
+        this.joueur1.initialiserGrilleDefense();
+        this.joueur2.initialiserGrilleDefense();
 
-        this.joueur1.getGrilleDefense().placerBateau("CT",
+        /*this.joueur1.getGrilleDefense().placerBateau("CT",
                 new Position(0, 0),
                 Orientation.NORD);
         this.joueur1.getGrilleDefense().placerBateau("C",
@@ -80,7 +80,7 @@ public class Partie {
                 Orientation.SUD);
         this.joueur2.getGrilleDefense().placerBateau("T",
                 new Position(9, 5),
-                Orientation.SUD);
+                Orientation.SUD);*/
 
         boolean joueur1Gagne = false;
         boolean joueur2Gagne = false;
@@ -178,7 +178,7 @@ public class Partie {
 
         System.out.println();
         System.out.println("#####################################################################################################");
-        System.out.println("                                         Tour numéro " + numTour + " de "+joueurJoue.getNom());
+        System.out.println("                  Tour numéro " + numTour + " de "+joueurJoue.getNom() + " : " + joueurJoue.getGrilleDefense().getNombreBateau()+" bateau(x) à couler");
         System.out.println("#####################################################################################################");
         System.out.println();
 

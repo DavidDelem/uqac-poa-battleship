@@ -50,45 +50,13 @@ public class Partie {
         this.joueur1.initialiserGrilleDefense();
         this.joueur2.initialiserGrilleDefense();
 
-        /*this.joueur1.getGrilleDefense().placerBateau("CT",
-                new Position(0, 0),
-                Orientation.NORD);
-        this.joueur1.getGrilleDefense().placerBateau("C",
-                new Position(0, 1),
-                Orientation.NORD);
-        this.joueur1.getGrilleDefense().placerBateau("PA",
-                new Position(0, 2),
-                Orientation.NORD);
-        this.joueur1.getGrilleDefense().placerBateau("SM",
-                new Position(0, 3),
-                Orientation.NORD);
-        this.joueur1.getGrilleDefense().placerBateau("T",
-                new Position(0, 4),
-                Orientation.NORD);
-
-        this.joueur2.getGrilleDefense().placerBateau("CT",
-                new Position(9, 9),
-                Orientation.SUD);
-        this.joueur2.getGrilleDefense().placerBateau("C",
-                new Position(9, 8),
-                Orientation.SUD);
-        this.joueur2.getGrilleDefense().placerBateau("PA",
-                new Position(9, 7),
-                Orientation.SUD);
-        this.joueur2.getGrilleDefense().placerBateau("SM",
-                new Position(9, 6),
-                Orientation.SUD);
-        this.joueur2.getGrilleDefense().placerBateau("T",
-                new Position(9, 5),
-                Orientation.SUD);*/
-
         boolean joueur1Gagne = false;
         boolean joueur2Gagne = false;
 
         int cptTour = 1;
         while(!joueur1Gagne && ! joueur2Gagne){
             joueur1Gagne = jouer(this.joueur1, this.joueur2, cptTour);
-            joueur2Gagne = jouer(this.joueur2, this.joueur1, cptTour);
+            if(!joueur1Gagne) joueur2Gagne = jouer(this.joueur2, this.joueur1, cptTour);
             cptTour++;
         }
 
@@ -178,7 +146,7 @@ public class Partie {
 
         System.out.println();
         System.out.println("#####################################################################################################");
-        System.out.println("                  Tour numéro " + numTour + " de "+joueurJoue.getNom() + " : " + joueurJoue.getGrilleDefense().getNombreBateau()+" bateau(x) à couler");
+        System.out.println("                  Tour numéro " + numTour + " de "+joueurJoue.getNom() + " : " + joueurAdversaire.getGrilleDefense().getNombreBateau()+" bateau(x) à couler");
         System.out.println("#####################################################################################################");
         System.out.println();
 

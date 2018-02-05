@@ -9,9 +9,23 @@ import java.util.Random;
 
 public class JoueurMachine extends Joueur{
 
+    /**
+     * Initialise le joueur IA
+     *
+     * @param nom le nom du joueur
+     * @return
+     */
+
     public JoueurMachine(String nom){
         super(nom);
     }
+
+    /**
+     * Initialisation de la grille de défence de l'IA
+     * Les positions des bateaux sont choisi aléatoirement
+     *
+     * @return
+     */
 
     @Override
     public void initialiserGrilleDefense() {
@@ -34,6 +48,12 @@ public class JoueurMachine extends Joueur{
 
     }
 
+    /**
+     * Permet à l'IA de tirer
+     * La position choisie est aléatoire
+     *
+     * @return la position choisie
+     */
 
     @Override
     public Position recupererPositionTir() {
@@ -43,6 +63,13 @@ public class JoueurMachine extends Joueur{
         return position;
 
     }
+
+    /**
+     * Permet à l'IA de déplacer un bateau
+     * Décision aléatoire et position choisie aléatoire
+     *
+     * @return true si l'IA veut déplacer le bateau, false si l'IA ne veut pas déplacer le bateau
+     */
 
     @Override
     public boolean gererDeplacementBateau() {

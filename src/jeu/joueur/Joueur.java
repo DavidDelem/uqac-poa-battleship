@@ -11,6 +11,13 @@ public class Joueur {
     protected GrilleDefense grilleDefense;
     protected GrilleAttaque grilleAttaque;
 
+    /**
+     * Initialise le joueur
+     *
+     * @param nom le nom du joueur
+     * @return
+     */
+
     public Joueur(String nom){
         this.nom = nom;
         this.grilleDefense = new GrilleDefense(this.nom);

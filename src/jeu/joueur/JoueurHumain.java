@@ -18,10 +18,23 @@ public class JoueurHumain extends Joueur{
 
     protected BufferedReader br;
 
+    /**
+     * Initialise le joueur humain
+     *
+     * @param nom le nom du joueur
+     * @return
+     */
+
     public JoueurHumain(String nom){
         super(nom);
         this.br = new BufferedReader(new InputStreamReader(System.in));
     }
+
+    /**
+     * Initialise la grille de défence
+     *
+     * @return
+     */
 
     @Override
     public void initialiserGrilleDefense() {
@@ -98,6 +111,13 @@ public class JoueurHumain extends Joueur{
         this.afficherGrilles();
     }
 
+    /**
+     * Demande au joueur de tirer et prends en compte le tir
+     * En cas d'erreur de saisie, l'utilisateur est invité à recommencer
+     *
+     * @return la position du tir réalisé
+     */
+
     @Override
     public Position recupererPositionTir() {
         Position position = new Position(0,0);
@@ -138,6 +158,13 @@ public class JoueurHumain extends Joueur{
 
         return position;
     }
+
+    /**
+     * Permet à l'utilisateur de déplacer son bateau si il le souhaite et si il en a le droit
+     * En cas d'erreur de saisie il est invité à recommencer
+     *
+     * @return true si la personne veut déplacer le bateau, false si la personne ne veut pas déplacer le bateau
+     */
 
     @Override
     public boolean gererDeplacementBateau() {
@@ -208,6 +235,12 @@ public class JoueurHumain extends Joueur{
         return true;
 
     }
+
+    /**
+     * Affiche les deux grilles du joueur
+     *
+     * @return
+     */
 
     public void afficherGrilles() {
 

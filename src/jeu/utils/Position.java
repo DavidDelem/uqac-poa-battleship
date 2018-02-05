@@ -1,7 +1,5 @@
 package jeu.utils;
 
-import java.util.Objects;
-
 public class Position {
 
     public int x,y;

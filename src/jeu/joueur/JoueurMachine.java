@@ -5,6 +5,8 @@ import jeu.grille.ResultatPlacementBateau;
 import jeu.utils.Orientation;
 import jeu.utils.Position;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Random;
 
 public class JoueurMachine extends Joueur{
@@ -59,8 +61,12 @@ public class JoueurMachine extends Joueur{
     public Position recupererPositionTir() {
 
         Random random = new Random();
-        Position position = new Position(random.nextInt(9), random.nextInt(9));
-        return position;
+        List<Position> tirsPossibles = this.grilleDefense.positionsTirsPossibles();
+
+        while(true){
+            if(tirsPossibles.size()!=0) return tirsPossibles.get(random.nextInt(tirsPossibles.size()-1));
+            else return new Position(0,0);
+        }
 
     }
 
@@ -68,11 +74,35 @@ public class JoueurMachine extends Joueur{
      * Permet à l'IA de déplacer un bateau
      * Décision aléatoire et position choisie aléatoire
      *
-     * @return true si l'IA veut déplacer le bateau, false si l'IA ne veut pas déplacer le bateau
+     * @return true si l'IA déplace le bateau, false si l'IA ne déplace pas le bateau
      */
 
     @Override
     public boolean gererDeplacementBateau() {
-        return false;
+
+        Random random = new Random();
+
+        //IA déplace un bateau
+        if (random.nextInt(1000) % 2 == 0) {
+            List<Bateau> bateauList = this.getGrilleDefense().getBateauList();
+
+            if (bateauList.size() != 0) {
+
+                while (true) {
+                    Bateau bateauRandom = bateauList.get(random.nextInt(bateauList.size() - 1));
+
+                    if (this.grilleDefense.deplacerBateau(bateauRandom.getIdentifiant(),
+                            Orientation.orientationRandom(),
+                            random.nextInt(1) + 1) == ResultatPlacementBateau.OK) {
+                        return true;
+                    }
+                }
+            }
+
+            return true;
+        }
+        //IA ne déplace pas de bateau
+        else return false;
     }
+
 }

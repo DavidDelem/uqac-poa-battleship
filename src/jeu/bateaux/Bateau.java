@@ -44,6 +44,14 @@ public class Bateau {
         for(int i=0; i<longueur; i++) caseBateauList.add(Etat.BATEAU_NON_TOUCHE);
     }
 
+    public int getChampTir() {
+        return champTir;
+    }
+
+    public boolean getChampDeTirVertical() {
+        return champDeTirVertical;
+    }
+
     public void setOrientation(Orientation orientation){
         this.orientation = orientation;
     }

@@ -80,7 +80,7 @@ public class JoueurHumain extends Joueur{
 
                         ResultatPlacementBateau resultatPlacementBateau =
                                 this.grilleDefense.placerBateau(sequence[0].toUpperCase(),
-                                new Position(Integer.parseInt(sequence[2])-1, Position.convertirColonne((sequence[1].toUpperCase()).charAt(0))),
+                                new Position(Integer.parseInt(sequence[2])-1, Position.convertirColonneInt((sequence[1].toUpperCase()).charAt(0))),
                                 Orientation.convertirOrientation(sequence[3]));
 
                         switch (resultatPlacementBateau) {
@@ -139,7 +139,7 @@ public class JoueurHumain extends Joueur{
 
                     String[] sequence = input.split(",");
                     position.x = Integer.parseInt(sequence[1]) - 1;
-                    position.y = Position.convertirColonne((sequence[0].toUpperCase()).charAt(0));
+                    position.y = Position.convertirColonneInt((sequence[0].toUpperCase()).charAt(0));
 
                     for(Position itemPosition : this.grilleDefense.positionsTirsPossibles()) {
                         if(itemPosition.equals(position))  {
@@ -198,6 +198,13 @@ public class JoueurHumain extends Joueur{
 
             while(erreurSelection) {
 
+                System.out.println("Liste des positions bateaux :");
+                for(Bateau itemBateau : this.grilleDefense.getBateauList()){
+                    System.out.println("- ["+itemBateau.getIdentifiant()+"] " + itemBateau.getNom() + " : "
+                            + Position.convertirColonneChar(itemBateau.getPositionProue().y) +","
+                            + (itemBateau.getPositionProue().x+1) +","
+                            + itemBateau.getOrientation());
+                }
                 System.out.println("Indiquez le bateau à déplacer [CT,OUEST,2] :");
 
                 input = br.readLine();

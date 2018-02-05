@@ -10,13 +10,13 @@ import jeu.utils.Position;
 
 public class Bateau {
 
-    private String nom, identifiant;
-    private int longueur, champTir;
-    private boolean champDeTirVertical;
-    private boolean coule;
-    private Orientation orientation;
-    private List<Etat> caseBateauList;
-    private Position positionProue;
+    protected String nom, identifiant;
+    protected int longueur, champTir;
+    protected boolean champDeTirVertical;
+    protected boolean coule;
+    protected Orientation orientation;
+    protected List<Etat> caseBateauList;
+    protected Position positionProue;
 
     /**
      * Initialise un bateau

@@ -322,7 +322,7 @@ public class GrilleDefense extends Grille {
 
         if(this.bateauList != null) {
             for (Bateau itemBateau : this.bateauList) {
-                for(Position itemPositionBateau : Bateau.getPositions(itemBateau, Etat.BATEAU_NON_TOUCHE)){
+                for(Position itemPositionBateau : Bateau.getPositions(itemBateau, null)){
                     if(itemPositionBateau.equals(positionTir)){
                         touche = true;
                         if(itemBateau.toucherCouler(positionTir)) bateauCoule = itemBateau;
@@ -373,4 +373,7 @@ public class GrilleDefense extends Grille {
 
     }
 
+    public List<Bateau> getBateauList() {
+        return bateauList;
+    }
 }

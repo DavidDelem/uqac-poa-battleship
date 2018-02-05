@@ -35,8 +35,19 @@ public class Position {
      * @return l'entier correspondant à la colonne
      */
 
-    public static int convertirColonne(char lettre){
+    public static int convertirColonneInt(char lettre){
         return lettre - 65;
+    }
+
+    /**
+     * Transforme un int correspondant à une colonne en char correspondant
+     *
+     * @param nombre le nombre de la colonne
+     * @return le char à la colonne
+     */
+
+    public static char convertirColonneChar(int nombre){
+        return (char)(65 + nombre);
     }
 
     @Override

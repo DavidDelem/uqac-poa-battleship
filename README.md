@@ -22,6 +22,5 @@ Pour cela, il indique le bateau à déplacer, le nombre de cases et la direction
 L'utilisateur peut alors modifier sa saisie.
 - [x] Le programme respecte les principes de l'orienté objet, est organisé en package et est commenté.<br>
       Le diagramme des classes de notre projet est le suivant:
-<p align="center">
+      
 ![Diagramme des classes](img/classdiagram.png?raw=true "Diagramme des classes")
-</p>

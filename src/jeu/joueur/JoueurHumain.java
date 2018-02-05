@@ -1,9 +1,7 @@
 package jeu.joueur;
 
-import jeu.Partie;
 import jeu.bateaux.*;
 import jeu.grille.Grille;
-import jeu.grille.GrilleDefense;
 import jeu.grille.ResultatPlacementBateau;
 import jeu.utils.Orientation;
 import jeu.utils.Position;
@@ -11,8 +9,6 @@ import jeu.utils.Position;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 
 public class JoueurHumain extends Joueur{
 

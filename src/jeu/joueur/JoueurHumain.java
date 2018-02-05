@@ -73,14 +73,14 @@ public class JoueurHumain extends Joueur{
 
                     String[] sequence = input.split(",");
 
-                    if( !input.matches("^(CT|C|PA|SM|T|ct|c|pa|sm|t),([A-J]|[a-j]),([1-9]|10),(NORD|EST|SUD|OUEST)$") ){
+                    if( !input.matches("^(CT|C|PA|SM|T|ct|c|pa|sm|t),([A-J]|[a-j]),([1-9]|10),(NORD|EST|SUD|OUEST|nord|est|sud|ouest)$") ){
                         System.out.println("Erreur : séquence invalide (syntaxe ou valeur) !");
                     } else {
 
                         ResultatPlacementBateau resultatPlacementBateau =
                                 this.grilleDefense.placerBateau(sequence[0].toUpperCase(),
                                 new Position(Integer.parseInt(sequence[2])-1, Position.convertirColonneInt((sequence[1].toUpperCase()).charAt(0))),
-                                Orientation.convertirOrientation(sequence[3]));
+                                Orientation.convertirOrientation(sequence[3].toUpperCase()));
 
                         switch (resultatPlacementBateau) {
                             case HORS_GRILLE:
@@ -207,7 +207,7 @@ public class JoueurHumain extends Joueur{
 
                 input = br.readLine();
 
-                if( !input.matches("^(CT|C|PA|SM|T|ct|c|pa|sm|t),(NORD|EST|SUD|OUEST),([0-2])$") ){
+                if( !input.matches("^(CT|C|PA|SM|T|ct|c|pa|sm|t),(NORD|EST|SUD|OUEST|nord|est|sud|ouest),([0-2])$") ){
                     System.out.println("Erreur : séquence invalide (syntaxe ou valeur) !");
                 } else {
 
@@ -215,7 +215,7 @@ public class JoueurHumain extends Joueur{
 
                     ResultatPlacementBateau resultatPlacementBateau =
                             this.grilleDefense.deplacerBateau(sequence[0].toUpperCase(),
-                                    Orientation.convertirOrientation(sequence[1]),
+                                    Orientation.convertirOrientation(sequence[1].toUpperCase()),
                                     Integer.parseInt(sequence[2]));
 
                     switch (resultatPlacementBateau) {
